@@ -12,9 +12,10 @@ public class AdivinaElNumero2 {
 
 	public static void main(String[] args) {
 		// TODO Elegir el rango de números
-		// TODO Número máximo de intentos
 		// TODO Poder poner tu nombre en las puntuaciones
 
+		int intentosMaximos = pedirEntero("Dime el número de intentos máximo");
+		
 		do {
 			int pensado = new Random().nextInt(1, 10);
 			int intentos = 0;
@@ -22,6 +23,11 @@ public class AdivinaElNumero2 {
 			int introducido;
 
 			do {
+				if(intentos >= intentosMaximos) {
+					pl("Has perdido por sobrepasar el número de intentos máximo");
+					break;
+				}
+				
 				introducido = pedirEntero("Dime un número");
 
 				intentos++;
