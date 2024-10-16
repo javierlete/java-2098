@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class AdivinaElNumero2 {
 	public static void main(String[] args) {
 		// TODO Elegir el rango de números
-		// TODO Número de intentos
 		// TODO Número máximo de intentos
 		// TODO Ranking de puntuaciones
 		// TODO Poder poner tu nombre en las puntuaciones
@@ -17,19 +16,24 @@ public class AdivinaElNumero2 {
 		
 		do {
 			int pensado = new Random().nextInt(1, 10);
+			int intentos = 0;
 			int introducido;
 			
 			do {
 				System.out.print("Dime un número: ");
 				introducido = sc.nextInt();
 				sc.nextLine();
+				
+				intentos++;
 
 				if (pensado > introducido) {
 					System.out.println("ES MAYOR");
 				} else if (pensado < introducido) {
 					System.out.println("Es menor");
 				} else {
-					System.out.println("HAS ACERTADO. EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
+					System.out.println("HAS ACERTADO");
+					System.out.println("EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
+					System.out.println("Has necesitado " + intentos + " intentos");
 				}
 			} while (pensado != introducido);
 			
