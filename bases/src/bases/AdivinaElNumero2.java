@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import static bibliotecas.Consola.*;
+
 public class AdivinaElNumero2 {
 	private static final ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
 	private static final Scanner sc = new Scanner(System.in);
@@ -20,7 +22,7 @@ public class AdivinaElNumero2 {
 			int introducido;
 
 			do {
-				introducido = pedirNumero();
+				introducido = pedirEntero("Dime un número");
 
 				intentos++;
 
@@ -36,41 +38,31 @@ public class AdivinaElNumero2 {
 		sc.close();
 	}
 
-	private static int pedirNumero() {
-		int introducido;
-		System.out.print("Dime un número: ");
-		introducido = sc.nextInt();
-		sc.nextLine();
-		return introducido;
-	}
-
 	private static void mostrarResultado(int pensado, int intentos, int introducido) {
 		if (pensado > introducido) {
-			System.out.println("ES MAYOR");
+			pl("ES MAYOR");
 		} else if (pensado < introducido) {
-			System.out.println("Es menor");
+			pl("Es menor");
 		} else {
-			System.out.println("HAS ACERTADO");
-			System.out.println("EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
-			System.out.println("Has necesitado " + intentos + " intentos");
+			pl("HAS ACERTADO");
+			pl("EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
+			pl("Has necesitado " + intentos + " intentos");
 		}
 	}
 
 	private static boolean pedirOtraPartida() {
-		boolean otraPartida;
-		System.out.print("¿Otra partida? (s/N): ");
-		String otra = sc.nextLine();
-		otraPartida = otra.equals("s");
-		return otraPartida;
+		String otra = pedirTexto("¿Otra partida? (s/N)");
+
+		return otra.equals("s");
 	}
 
 	private static void cierre() {
-		System.out.print("Puntuaciones: ");
+		p("Puntuaciones: ");
 
 		puntuaciones.sort((a, b) -> Integer.compare(a, b));
 
-		System.out.println(puntuaciones);
+		pl(puntuaciones.toString());
 
-		System.out.println("Gracias por jugar");
+		pl("Gracias por jugar");
 	}
 }
