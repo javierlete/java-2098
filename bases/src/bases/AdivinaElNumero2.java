@@ -1,5 +1,6 @@
 package bases;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,8 +8,8 @@ public class AdivinaElNumero2 {
 	public static void main(String[] args) {
 		// TODO Elegir el rango de números
 		// TODO Número máximo de intentos
-		// TODO Ranking de puntuaciones
 		// TODO Poder poner tu nombre en las puntuaciones
+		var puntuaciones = new ArrayList<Integer>();
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -34,6 +35,8 @@ public class AdivinaElNumero2 {
 					System.out.println("HAS ACERTADO");
 					System.out.println("EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
 					System.out.println("Has necesitado " + intentos + " intentos");
+					
+					puntuaciones.add(intentos);
 				}
 			} while (pensado != introducido);
 			
@@ -41,6 +44,9 @@ public class AdivinaElNumero2 {
 			String otra = sc.nextLine();
 			otraPartida = otra.equals("s");
 		} while (otraPartida);
+		
+		System.out.print("Puntuaciones: ");
+		System.out.println(puntuaciones);
 		
 		System.out.println("Gracias por jugar");
 		
