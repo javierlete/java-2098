@@ -39,6 +39,8 @@ public class AdivinaElNumero2 {
 	private static void cierre(ArrayList<Integer> puntuaciones) {
 		System.out.print("Puntuaciones: ");
 
+		puntuaciones.sort((a, b) -> Integer.compare(a, b));
+
 		System.out.println(puntuaciones);
 
 		System.out.println("Gracias por jugar");
