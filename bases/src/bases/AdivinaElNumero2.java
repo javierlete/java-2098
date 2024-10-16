@@ -14,22 +14,32 @@ public class AdivinaElNumero2 {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		int pensado = new Random().nextInt(1, 100);
-
-		int introducido;
+		boolean otraPartida;
 		
 		do {
-			System.out.print("Dime un número: ");
-			introducido = sc.nextInt();
+			int pensado = new Random().nextInt(1, 10);
+			int introducido;
 			
-			if(pensado > introducido) {
-				System.out.println("ES MAYOR");
-			} else if(pensado < introducido) {
-				System.out.println("Es menor");
-			} else {
-				System.out.println("HAS ACERTADO. EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
-			}
-		} while(pensado != introducido);
+			do {
+				System.out.print("Dime un número: ");
+				introducido = sc.nextInt();
+				sc.nextLine();
+
+				if (pensado > introducido) {
+					System.out.println("ES MAYOR");
+				} else if (pensado < introducido) {
+					System.out.println("Es menor");
+				} else {
+					System.out.println("HAS ACERTADO. EFECTIVAMENTE EL NÚMERO ERA EL " + pensado);
+				}
+			} while (pensado != introducido);
+			
+			System.out.print("¿Otra partida? (s/N): ");
+			String otra = sc.nextLine();
+			otraPartida = otra.equals("s");
+		} while (otraPartida);
+		
+		System.out.println("Gracias por jugar");
 		
 		sc.close();
 	}
