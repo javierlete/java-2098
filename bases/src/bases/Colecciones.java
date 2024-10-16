@@ -36,5 +36,22 @@ public class Colecciones {
 		for(int dato: puntuaciones) {
 			System.out.println(dato);
 		}
+		
+		// Buscar un dato
+		for(int dato: puntuaciones) {
+			if(dato == 5) {
+				System.out.println("Encontrado");
+				break;
+			}
+		}
+		
+		boolean encontrado = false;
+		
+		for(int i = 0; i < puntuaciones.size() && !encontrado; i++) {
+			if(puntuaciones.get(i) == 5) {
+				System.out.println("Encontrado");
+				encontrado = true;
+			}
+		}
 	}
 }
