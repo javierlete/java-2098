@@ -8,7 +8,6 @@ public class AdivinaElNumero2 {
 		// TODO Elegir el rango de números
 		// TODO Número de intentos
 		// TODO Número máximo de intentos
-		// TODO Poder echar otra partida
 		// TODO Ranking de puntuaciones
 		// TODO Poder poner tu nombre en las puntuaciones
 		
