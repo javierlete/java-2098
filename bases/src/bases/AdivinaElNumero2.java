@@ -7,6 +7,7 @@ import java.util.Scanner;
 import static bibliotecas.Consola.*;
 
 public class AdivinaElNumero2 {
+	private static final int MINIMO_INTENTOS_MAXIMO = 1;
 	private static final ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
 	private static final Scanner sc = new Scanner(System.in);
 
@@ -14,7 +15,7 @@ public class AdivinaElNumero2 {
 		// TODO Elegir el rango de números
 		// TODO Poder poner tu nombre en las puntuaciones
 
-		int intentosMaximos = pedirEntero("Dime el número de intentos máximo");
+		int intentosMaximos = pedirEntero("Dime el número de intentos máximo", MINIMO_INTENTOS_MAXIMO);
 		
 		do {
 			partida(intentosMaximos);

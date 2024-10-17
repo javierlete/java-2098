@@ -1,6 +1,5 @@
 package bibliotecas;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Consola {
@@ -19,8 +18,8 @@ public class Consola {
 	}
 
 	public static int pedirEntero() {
-		int entero = SC.nextInt();
-		SC.nextLine();
+		String sEntero = SC.nextLine();
+		int entero = Integer.parseInt(sEntero);
 		return entero;
 	}
 
@@ -29,11 +28,21 @@ public class Consola {
 			p(mensaje + ": ");
 
 			return pedirEntero();
-		} catch (InputMismatchException e) {
+		} catch (NumberFormatException e) {
 			pl("El texto recibido no es un número entero");
-			SC.nextLine();
 			return pedirEntero(mensaje);
 		}
+	}
+
+	public static int pedirEntero(String mensaje, int minimo) {
+		int entero = pedirEntero(mensaje);
+
+		if (entero >= minimo) {
+			return entero;
+		}
+
+		pl("El número introducido es menor que el " + minimo);
+		return pedirEntero(mensaje, minimo);
 	}
 
 	public static String pedirTexto(String mensaje) {
