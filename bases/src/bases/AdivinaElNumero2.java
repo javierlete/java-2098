@@ -17,31 +17,32 @@ public class AdivinaElNumero2 {
 		int intentosMaximos = pedirEntero("Dime el número de intentos máximo");
 		
 		do {
-			int pensado = new Random().nextInt(1, 10);
-			int intentos = 0;
-			
-			int introducido;
-
-			do {
-				if(intentos >= intentosMaximos) {
-					pl("Has perdido por sobrepasar el número de intentos máximo");
-					break;
-				}
-				
-				introducido = pedirEntero("Dime un número");
-
-				intentos++;
-
-				mostrarResultado(pensado, intentos, introducido);
-			} while (pensado != introducido);
-
-			puntuaciones.add(intentos);
-			
+			partida(intentosMaximos);
 		} while (pedirOtraPartida());
 
 		cierre();
+	}
 
-		sc.close();
+	private static void partida(int intentosMaximos) {
+		int pensado = new Random().nextInt(1, 10);
+		int intentos = 0;
+		
+		int introducido;
+
+		do {
+			if(intentos >= intentosMaximos) {
+				pl("Has perdido por sobrepasar el número de intentos máximo");
+				break;
+			}
+			
+			introducido = pedirEntero("Dime un número");
+
+			intentos++;
+
+			mostrarResultado(pensado, intentos, introducido);
+		} while (pensado != introducido);
+
+		puntuaciones.add(intentos);
 	}
 
 	private static void mostrarResultado(int pensado, int intentos, int introducido) {
@@ -63,6 +64,8 @@ public class AdivinaElNumero2 {
 	}
 
 	private static void cierre() {
+		sc.close();
+		
 		p("Puntuaciones: ");
 
 		puntuaciones.sort((a, b) -> Integer.compare(a, b));
