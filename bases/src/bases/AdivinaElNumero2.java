@@ -33,7 +33,7 @@ public class AdivinaElNumero2 {
 		do {
 			if(intentos >= intentosMaximos) {
 				pl("Has perdido por sobrepasar el número de intentos máximo");
-				break;
+				return;
 			}
 			
 			introducido = pedirEntero("Dime un número");
