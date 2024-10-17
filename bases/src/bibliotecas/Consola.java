@@ -1,5 +1,6 @@
 package bibliotecas;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Consola {
@@ -24,9 +25,15 @@ public class Consola {
 	}
 
 	public static int pedirEntero(String mensaje) {
-		p(mensaje + ": ");
+		try {
+			p(mensaje + ": ");
 
-		return pedirEntero();
+			return pedirEntero();
+		} catch (InputMismatchException e) {
+			pl("El texto recibido no es un número entero");
+			SC.nextLine();
+			return pedirEntero(mensaje);
+		}
 	}
 
 	public static String pedirTexto(String mensaje) {
