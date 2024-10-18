@@ -51,7 +51,7 @@ public class Persona {
 	}
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		if(fechaNacimiento != null && getEdad(fechaNacimiento) < MAYORIA_DE_EDAD) {
+		if(fechaNacimiento != null && getEdadLegal(fechaNacimiento) < MAYORIA_DE_EDAD) {
 			throw new IllegalArgumentException("Debe ser mayor de edad");
 		}
 		
@@ -59,6 +59,14 @@ public class Persona {
 	}
 	
 	// OTROS MÉTODOS
+	public int getEdadLegal() {
+		if(fechaNacimiento == null) {
+			throw new IllegalStateException("No tenemos fecha de nacimiento");
+		}
+		
+		return getEdadLegal(fechaNacimiento);
+	}
+
 	public int getEdad() {
 		if(fechaNacimiento == null) {
 			throw new IllegalStateException("No tenemos fecha de nacimiento");
@@ -68,6 +76,10 @@ public class Persona {
 	}
 	
 	public static int getEdad(LocalDate fechaNacimiento) {
+		return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+	}
+
+	public static int getEdadLegal(LocalDate fechaNacimiento) {
 		return Period.between(fechaNacimiento.plusDays(1), LocalDate.now()).getYears();
 	}
 

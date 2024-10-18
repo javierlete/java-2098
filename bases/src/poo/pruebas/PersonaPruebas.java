@@ -37,6 +37,7 @@ public class PersonaPruebas {
 		Persona p5 = new Persona("Con edad", LocalDate.of(2000, 10, 18));
 		
 		System.out.println(p5.getEdad());
+		System.out.println(p5.getEdadLegal());
 		
 		System.out.println(p5);
 	}
