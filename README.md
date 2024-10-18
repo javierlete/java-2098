@@ -3,6 +3,7 @@
 - Java Language Specification: https://docs.oracle.com/javase/specs/
 - API de Java: https://docs.oracle.com/en/java/javase/21/docs/api/index.html
 - Tutoriales de Oracle de Java: https://docs.oracle.com/javase/tutorial/
+- Tutoriales de W3Schools: https://www.w3schools.com/java/default.asp
 
 # Ejercicios
 
