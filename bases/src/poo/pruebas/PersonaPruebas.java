@@ -40,6 +40,13 @@ public class PersonaPruebas {
 		System.out.println(p5.getEdadLegal());
 		
 		System.out.println(p5);
+		
+		Persona p6 = new Persona(p5);
+		
+		p6.setNombre("Cambiado");
+		
+		System.out.println(p5);
+		System.out.println(p6);
 	}
 
 	private static void mostrar(Persona persona) {

@@ -26,6 +26,11 @@ public class Persona {
 		this("ANONIMO", FECHA_POR_DEFECTO);
 	}
 
+	// Constructor de copia
+	public Persona(Persona persona) {
+		this(persona.getNombre(), persona.getFechaNacimiento());
+	}
+	
 	// MÉTODOS DE ACCESO (GETTERS Y SETTERS)
 	public void setNombre(String nombre) {
 		
