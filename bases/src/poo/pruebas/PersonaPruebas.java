@@ -14,7 +14,7 @@ public class PersonaPruebas {
 		
 		mostrar(p);
 		
-		p.setNombre("   lj54  ");
+		p.setNombre("    sdfgsdf  ");
 		p.setFechaNacimiento(null); // LocalDate.now()); // .minusYears(18));
 		
 		mostrar(p);
@@ -41,12 +41,18 @@ public class PersonaPruebas {
 		
 		System.out.println(p5);
 		
-		Persona p6 = new Persona(p5);
+		Persona p6 = new Persona(p5); // hace copia, a diferencia de Persona p6 = p5;
 		
 		p6.setNombre("Cambiado");
 		
-		System.out.println(p5);
-		System.out.println(p6);
+		System.out.println("p5 = " + p5);
+		System.out.println("p6 = " + p6);
+		
+		System.out.println(Persona.getEdad(LocalDate.now().minusYears(18)));
+		System.out.println(Persona.getEdadLegal(LocalDate.now().minusYears(18)));
+		
+		System.out.println(Persona.isMayorDeEdad(LocalDate.now().minusYears(18)));
+		System.out.println(Persona.isMayorDeEdad(LocalDate.now().minusYears(18).minusDays(1)));
 	}
 
 	private static void mostrar(Persona persona) {

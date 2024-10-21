@@ -27,8 +27,8 @@ public class Persona {
 	}
 
 	// Constructor de copia
-	public Persona(Persona persona) {
-		this(persona.getNombre(), persona.getFechaNacimiento());
+	public Persona(Persona otra) {
+		this(otra.getNombre(), otra.getFechaNacimiento());
 	}
 	
 	// MÉTODOS DE ACCESO (GETTERS Y SETTERS)
@@ -56,7 +56,7 @@ public class Persona {
 	}
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		if(fechaNacimiento != null && getEdadLegal(fechaNacimiento) < MAYORIA_DE_EDAD) {
+		if(fechaNacimiento != null && !isMayorDeEdad(fechaNacimiento)) {
 			throw new IllegalArgumentException("Debe ser mayor de edad");
 		}
 		
@@ -87,7 +87,12 @@ public class Persona {
 	public static int getEdadLegal(LocalDate fechaNacimiento) {
 		return Period.between(fechaNacimiento.plusDays(1), LocalDate.now()).getYears();
 	}
+	
+	public static boolean isMayorDeEdad(LocalDate fechaNacimiento) {
+		return getEdadLegal(fechaNacimiento) >= MAYORIA_DE_EDAD;
+	}
 
+	// ToString()
 	@Override
 	public String toString() {
 		return "Persona [nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + "]";
