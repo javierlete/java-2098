@@ -1,5 +1,6 @@
 package poo.pojos;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Almacen {
@@ -13,9 +14,9 @@ public class Almacen {
 		super();
 		this.nombre = nombre;
 		
-		meterProducto(new Producto("Portátil", 1234.21789));
-		meterProducto(new Producto("Teclado", 123.363456));
-		meterProducto(new Producto("Ratón", 12.5112314));
+		meterProducto(new Producto("Portátil", new BigDecimal("1234.21789")));
+		meterProducto(new Producto("Teclado", new BigDecimal("123.363456")));
+		meterProducto(new Producto("Ratón", new BigDecimal("12.5112314")));
 	}
 
 	// GETTERS Y SETTERS

@@ -1,12 +1,13 @@
 package poo.pruebas;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import poo.pojos.Producto;
 
 public class ProductoPruebas {
 	public static void main(String[] args) {
-		Producto p = new Producto(1L, "Portátil", 1234.56);
+		Producto p = new Producto(1L, "Portátil", new BigDecimal("1234.56"));
 		
 		System.out.println(p.toString());
 		
@@ -20,7 +21,7 @@ public class ProductoPruebas {
 		
 		productos.add(p);
 		
-		Producto nuevo = new Producto("Ratón", 12.34);
+		Producto nuevo = new Producto("Ratón", new BigDecimal("12.34"));
 		
 		Long ultimoId = 0L;
 		
