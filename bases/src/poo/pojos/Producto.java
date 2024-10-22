@@ -54,7 +54,11 @@ public class Producto {
 			throw new IllegalArgumentException("No se admiten precios negativos");
 		}
 		
+<<<<<<< HEAD
 		this.precio = precio.setScale(NUMERO_DECIMALES, RoundingMode.HALF_UP);
+=======
+		this.precio = precio.setScale(2, RoundingMode.HALF_UP);
+>>>>>>> branch 'master' of https://github.com/javierlete/java-2098
 	}
 
 	// TOSTRING()
