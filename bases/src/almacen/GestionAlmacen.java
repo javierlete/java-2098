@@ -2,6 +2,8 @@ package almacen;
 
 import static bibliotecas.Consola.*;
 
+import java.math.BigDecimal;
+
 import poo.pojos.Almacen;
 import poo.pojos.Producto;
 
@@ -96,7 +98,7 @@ public class GestionAlmacen {
 
 	private static void insertar() {
 		String nombre = pedirTexto("Dame el nombre del producto", REQUERIDO);
-		Double precio = pedirDouble("Dame el precio del producto", Producto.PRECIO_MINIMO);
+		BigDecimal precio = pedirBigDecimal("Dame el precio del producto", Producto.PRECIO_MINIMO);
 
 		Producto producto = new Producto(nombre, precio);
 
@@ -106,7 +108,7 @@ public class GestionAlmacen {
 	private static void modificar() {
 		Long id = pedirLong("Dime el id del producto a cambiar");
 		String nombre = pedirTexto("Dame el nombre del producto", REQUERIDO);
-		Double precio = pedirDouble("Dame el precio del producto", Producto.PRECIO_MINIMO);
+		BigDecimal precio = pedirBigDecimal("Dame el precio del producto", Producto.PRECIO_MINIMO);
 
 		Producto producto = new Producto(id, nombre, precio);
 

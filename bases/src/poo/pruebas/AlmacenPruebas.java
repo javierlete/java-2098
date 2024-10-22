@@ -1,5 +1,7 @@
 package poo.pruebas;
 
+import java.math.BigDecimal;
+
 import poo.pojos.Almacen;
 import poo.pojos.Producto;
 
@@ -7,8 +9,8 @@ public class AlmacenPruebas {
 	public static void main(String[] args) {
 		Almacen bilbao = new Almacen("Bilbao");
 
-		bilbao.meterProducto(new Producto("Teclado", 34.56));
-		bilbao.meterProducto(new Producto("Alfombrilla de ratón", 4.99));
+		bilbao.meterProducto(new Producto("Teclado", new BigDecimal("34.56")));
+		bilbao.meterProducto(new Producto("Alfombrilla de ratón", new BigDecimal("4.99")));
 
 		System.out.println(bilbao);
 
@@ -32,7 +34,7 @@ public class AlmacenPruebas {
 		
 		System.out.println(bilbao);
 		
-		bilbao.modificarProducto(new Producto(2L, "MODIFICADO", 4321.12));
+		bilbao.modificarProducto(new Producto(2L, "MODIFICADO", new BigDecimal("4321.12")));
 		
 		System.out.println(bilbao);
 	}

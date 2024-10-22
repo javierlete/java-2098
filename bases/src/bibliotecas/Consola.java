@@ -1,5 +1,6 @@
 package bibliotecas;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Consola {
@@ -100,6 +101,33 @@ public class Consola {
 		
 		pl("El número introducido es menor que el " + minimo);
 		return pedirDouble(mensaje, minimo);
+	}
+	public static BigDecimal pedirBigDecimal() {
+		String sDecimal = SC.nextLine();
+		BigDecimal decimal = new BigDecimal(sDecimal);
+		return decimal;
+	}
+	
+	public static BigDecimal pedirBigDecimal(String mensaje) {
+		try {
+			p(mensaje + ": ");
+			
+			return pedirBigDecimal();
+		} catch (NumberFormatException e) {
+			pl("El texto recibido no es un número con decimales");
+			return pedirBigDecimal(mensaje);
+		}
+	}
+	
+	public static BigDecimal pedirBigDecimal(String mensaje, BigDecimal minimo) {
+		BigDecimal decimal = pedirBigDecimal(mensaje);
+		
+		if (decimal.compareTo(minimo) >= 0) {
+			return decimal;
+		}
+		
+		pl("El número introducido es menor que el " + minimo);
+		return pedirBigDecimal(mensaje, minimo);
 	}
 
 	public static String pedirTexto(String mensaje) {
