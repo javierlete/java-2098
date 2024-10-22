@@ -1,6 +1,9 @@
 package poo.pojos;
 
 public class Producto {
+	// CONSTANTES
+	public static final double PRECIO_MINIMO = 0.0;
+
 	// VARIABLES DE INSTANCIA
 	private Long id;
 	private String nombre;
@@ -31,7 +34,11 @@ public class Producto {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		if(nombre == null || nombre.isBlank()) {
+			throw new IllegalArgumentException("No se permiten nombres vacíos o nulos");
+		}
+		
+		this.nombre = nombre.trim();
 	}
 
 	public Double getPrecio() {
@@ -39,7 +46,7 @@ public class Producto {
 	}
 
 	public void setPrecio(Double precio) {
-		if (precio < 0) {
+		if (precio < PRECIO_MINIMO) {
 			throw new IllegalArgumentException("No se admiten precios negativos");
 		}
 		

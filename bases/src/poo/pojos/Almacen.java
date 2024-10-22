@@ -12,6 +12,10 @@ public class Almacen {
 	public Almacen(String nombre) {
 		super();
 		this.nombre = nombre;
+		
+		meterProducto(new Producto("Portátil", 1234.21789));
+		meterProducto(new Producto("Teclado", 123.363456));
+		meterProducto(new Producto("Ratón", 12.5112314));
 	}
 
 	// GETTERS Y SETTERS
