@@ -4,14 +4,29 @@
 
 <h1><%=almacen.getNombre()%></h1>
 
-<ul>
+<div class="row row-cols-1 row-cols-md-3 g-4">
 	<%
 	for (Producto p : almacen.getProductos()) {
 	%>
-	<li><a href="detalle.jsp?id=<%=p.getId()%>"><%=p.getNombre()%></a></li>
+	<div class="col">
+		<div class="card h-100">
+			<img src="https://picsum.photos/400/300?<%=p.getId()%>"
+				class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">
+					<a class="text-dark link-underline-light stretched-link"
+						href="detalle.jsp?id=<%=p.getId()%>"><%=p.getNombre()%></a>
+				</h5>
+				<p class="card-text"><%=p.getPrecio()%></p>
+			</div>
+			<div class="card-footer">
+				<small class="text-body-secondary">Last updated 3 mins ago</small>
+			</div>
+		</div>
+	</div>
 	<%
 	}
 	%>
-</ul>
+</div>
 
 <%@ include file="includes/pie.jsp"%>

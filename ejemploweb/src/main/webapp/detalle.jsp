@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="includes/cabecera.jsp"%>
-<% 
+<%
 String sId = request.getParameter("id");
 
 Long id = Long.parseLong(sId);
@@ -9,17 +9,25 @@ Long id = Long.parseLong(sId);
 Producto producto = almacen.getProductoPorId(id);
 %>
 
-<h1><%=producto.getNombre() %></h1>
+<h1><%=producto.getNombre()%></h1>
 
-<dl>
-	<dt>Id</dt>
-	<dd><%=producto.getId() %></dd>
-	
-	<dt>Nombre</dt>
-	<dd><%=producto.getNombre() %></dd>
-	
-	<dt>Precio</dt>
-	<dd><%=producto.getPrecio() %></dd>
-</dl>
+<div class="card mb-3" style="max-width: 540px;">
+	<div class="row g-0">
+		<div class="col-md-4">
+			<img src="https://picsum.photos/400/400"
+				class="img-fluid rounded-start" alt="...">
+		</div>
+		<div class="col-md-8">
+			<div class="card-body">
+				<h5 class="card-title"><%=producto.getNombre()%></h5>
+				<p class="card-text"><%=producto.getId()%></p>
+				<p class="card-text"><%=producto.getPrecio()%></p>
+				<p class="card-text">
+					<small class="text-body-secondary">Last updated 3 mins ago</small>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%@ include file="includes/pie.jsp"%>
