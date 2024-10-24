@@ -22,7 +22,7 @@
 			<td><%=p.getNombre() %></td>
 			<td class="text-end"><%=p.getPrecio() %> €</td>
 			<td>
-				<a class="btn btn-primary" href="#">Editar</a>
+				<a class="btn btn-primary" href="form.jsp?id=<%=p.getId()%>">Editar</a>
 				<a class="btn btn-danger" href="#">Borrar</a>
 			</td>
 		</tr>
@@ -34,7 +34,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<a class="btn btn-primary" href="#">Añadir</a>
+				<a class="btn btn-primary" href="form.jsp">Añadir</a>
 			</td>
 		</tr>
 	</tfoot>

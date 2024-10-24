@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="poo.pojos.Producto"%>
 <%@ page import="poo.pojos.Almacen"%>
+<%@ page import="java.math.BigDecimal"%>
 
 <%
 Almacen almacen = new Almacen("Bilbao");
