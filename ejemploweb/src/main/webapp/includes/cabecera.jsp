@@ -8,7 +8,7 @@ Almacen almacen = new Almacen("Bilbao");
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Almacén</title>
@@ -34,8 +34,11 @@ Almacen almacen = new Almacen("Bilbao");
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="index.jsp">Principal</a></li>
 				</ul>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="admin.jsp">Administración</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
 	
-	<%= "<main class='container'>" %>
+	<%= "<main class='container my-4'>" %>
