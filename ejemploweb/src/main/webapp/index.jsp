@@ -14,7 +14,9 @@
 
 <ul>
 <% for(Producto p: almacen.getProductos()) { %>
-	<li><%=p.getNombre() %></li>
+	<li>
+		<a href="detalle.jsp?id=<%=p.getId()%>"><%=p.getNombre() %></a>
+	</li>
 <% } %>
 </ul>
 
