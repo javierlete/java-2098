@@ -39,8 +39,14 @@ public class FormServlet extends HttpServlet {
 
 		// 2. Convertir los datos
 		Long id = sId.isBlank() ? null : Long.parseLong(sId);
-		BigDecimal precio = new BigDecimal(sPrecio);
+		BigDecimal precio = sPrecio.isBlank() ? null : new BigDecimal(sPrecio);
 
+		if(nombre.isBlank()) {
+			request.setAttribute("errores", "El nombre debe ser rellenado");
+			request.getRequestDispatcher("form.jsp").forward(request, response);
+			return;
+		}
+		
 		// 3. Empaquetar en modelo
 		Producto producto = new Producto(id, nombre, precio);
 
@@ -50,7 +56,7 @@ public class FormServlet extends HttpServlet {
 		} else {
 			globales.Global.almacen.modificarProducto(producto);
 		}
-		
+
 		// 5. Preparar la información para la vista
 		// NO HAY
 

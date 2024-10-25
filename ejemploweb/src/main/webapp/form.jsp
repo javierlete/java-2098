@@ -4,6 +4,7 @@
 
 <%
 Producto producto = (Producto) request.getAttribute("producto");
+String errores = (String) request.getAttribute("errores");
 %>
 
 <form action="form" method="post">
@@ -33,6 +34,9 @@ Producto producto = (Producto) request.getAttribute("producto");
 	</div>
 
 	<button type="submit" class="btn btn-primary">Guardar</button>
+	<div class="text-danger">
+		<%=errores%>
+	</div>
 </form>
 
 <%@ include file="includes/pie.jsp"%>
