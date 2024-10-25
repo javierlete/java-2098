@@ -3,7 +3,6 @@
 <%@ page import="poo.pojos.Producto"%>
 <%@ page import="poo.pojos.Almacen"%>
 <%@ page import="java.math.BigDecimal"%>
-<%@ page import="static globales.Global.almacen" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>

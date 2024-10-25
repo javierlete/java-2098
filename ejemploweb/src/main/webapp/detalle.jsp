@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="includes/cabecera.jsp"%>
 <%
-String sId = request.getParameter("id");
-
-Long id = Long.parseLong(sId);
-
-Producto producto = almacen.getProductoPorId(id);
+Producto producto = (Producto) request.getAttribute("producto");
 %>
 
 <h1><%=producto.getNombre()%></h1>

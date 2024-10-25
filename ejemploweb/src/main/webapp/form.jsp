@@ -3,36 +3,10 @@
 <%@ include file="includes/cabecera.jsp"%>
 
 <%
-String sId = request.getParameter("id");
-
-Producto producto = null;
-
-if (request.getMethod().equals("GET")) {
-	if (sId != null) {
-		Long id = Long.parseLong(sId);
-		producto = almacen.getProductoPorId(id);
-	}
-} else {
-	String nombre = request.getParameter("nombre");
-	String sPrecio = request.getParameter("precio");
-	
-	Long id = sId.isBlank() ? null : Long.parseLong(sId);
-	BigDecimal precio = new BigDecimal(sPrecio);
-	
-	producto = new Producto(id, nombre, precio);
-	
-	if(id == null) {
-		almacen.meterProducto(producto);
-	} else {
-		almacen.modificarProducto(producto);
-	}
-	
-	response.sendRedirect("admin.jsp");
-	return;
-}
+Producto producto = (Producto) request.getAttribute("producto");
 %>
 
-<form action="form.jsp" method="post">
+<form action="form" method="post">
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm">

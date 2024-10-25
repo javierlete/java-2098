@@ -21,7 +21,7 @@ LocalTime ahora = LocalTime.now();
 	<pre>
 		<%
 		for (int num = 0; num <= ahora.getSecond(); num++) {
-		%>*<%
+			out.print("*");
 		}
 		%>
 	</pre>

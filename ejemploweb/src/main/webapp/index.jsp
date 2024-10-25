@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="includes/cabecera.jsp"%>
 
+<%
+Almacen almacen = (Almacen) request.getAttribute("almacen");
+%>
+
 <h1><%=almacen.getNombre()%></h1>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -15,7 +19,7 @@
 			<div class="card-body">
 				<h5 class="card-title">
 					<a class="text-dark link-underline-light stretched-link"
-						href="detalle.jsp?id=<%=p.getId()%>"><%=p.getNombre()%></a>
+						href="detalle?id=<%=p.getId()%>"><%=p.getNombre()%></a>
 				</h5>
 				<p class="card-text"><%=p.getPrecio()%></p>
 			</div>
