@@ -12,9 +12,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+	<nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="index">IparTube</a>
 			<button class="navbar-toggler" type="button"
@@ -34,4 +36,4 @@
 		</div>
 	</nav>
 	
-	<%= "<main class='container my-4'>" %>
+	<%= "<main class='container mt-4 mb-5 pb-5'>" %>
