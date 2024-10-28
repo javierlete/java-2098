@@ -41,6 +41,7 @@ public class FormServlet extends HttpServlet {
 		Long id = sId.isBlank() ? null : Long.parseLong(sId);
 		BigDecimal precio = sPrecio.isBlank() ? null : new BigDecimal(sPrecio);
 
+		// 2.5 Validación
 		if(nombre.isBlank()) {
 			request.setAttribute("errores", "El nombre debe ser rellenado");
 			request.getRequestDispatcher("form.jsp").forward(request, response);
