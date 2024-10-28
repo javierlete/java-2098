@@ -35,7 +35,7 @@ String errores = (String) request.getAttribute("errores");
 
 	<button type="submit" class="btn btn-primary">Guardar</button>
 	<div class="text-danger">
-		<%=errores%>
+		<%=errores != null ? errores : "" %>
 	</div>
 </form>
 
