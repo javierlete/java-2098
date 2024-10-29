@@ -1,22 +1,34 @@
 package poo.pojos;
 
-import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Almacen {
+	private static final String url = "jdbc:sqlite:C:\\Users\\html.IPARTEKAULA\\git\\java-2098\\ejemploweb\\bdd\\ejemploweb.db";
+	private static final String user = "";
+	private static final String pass = "";
+
 	// VARIABLES DE INSTANCIA
 	private String nombre;
-	
 	private ArrayList<Producto> productos = new ArrayList<Producto>();
+
+	// "CONSTRUCTOR ESTÁTICO"
+	static {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			System.out.println("NO SE HA ENCONTRADO EL DRIVER");
+		}
+	}
 
 	// CONSTRUCTORES
 	public Almacen(String nombre) {
 		super();
 		this.nombre = nombre;
-		
-		meterProducto(new Producto("Portátil", new BigDecimal("1234.21789")));
-		meterProducto(new Producto("Teclado", new BigDecimal("123.363456")));
-		meterProducto(new Producto("Ratón", new BigDecimal("12.5112314")));
 	}
 
 	// GETTERS Y SETTERS
@@ -29,62 +41,49 @@ public class Almacen {
 	}
 
 	public ArrayList<Producto> getProductos() {
-		return productos;
+
+		String sql = "SELECT * FROM productos";
+
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql)) {
+			Producto producto = null;
+
+			productos.clear();
+			
+			while (rs.next()) {
+				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
+				productos.add(producto);
+			}
+
+			return productos;
+		} catch (SQLException e) {
+			throw new RuntimeException("Ha fallado la consulta");
+		}
 	}
-	
+
 	// MÉTODOS DE INSTANCIA
 	public Producto getProductoPorId(Long id) {
-		for(Producto p: productos) {
-			if(p.getId() == id) {
-				return p;
-			}
-		}
-		
-		return null;
+		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
 	}
-	
+
 	public Producto meterProducto(Producto producto) {
-		Long ultimoId = 0L;
-		
-		for(Producto p: productos) {
-			if(p.getId() > ultimoId) {
-				ultimoId = p.getId();
-			}
+		String sql = "INSERT INTO productos (nombre, precio) VALUES ('%s', %s)";
+
+		try (Connection con = DriverManager.getConnection(url, user, pass); Statement st = con.createStatement()) {
+			st.executeUpdate(String.format(sql, producto.getNombre(), producto.getPrecio()));
+
+			return producto;
+		} catch (SQLException e) {
+			throw new RuntimeException("Ha fallado la consulta");
 		}
-		
-		producto.setId(ultimoId + 1L);
-		
-		productos.add(producto);
-		
-		return producto;
 	}
-	
+
 	public Producto modificarProducto(Producto producto) {
-		for(int i = 0; i < productos.size(); i++) {
-			if(producto.getId() == productos.get(i).getId()) {
-				productos.set(i, producto);
-				
-				return producto;
-			}
-		}
-		
-		throw new IllegalArgumentException("No tengo un producto con ese Id");
+		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
 	}
-	
+
 	public void eliminarProducto(Long id) {
-		for(Producto p: productos) {
-			if(p.getId() == id) {
-				productos.remove(p);
-				return;
-			}
-		}
-		
-		throw new IllegalArgumentException("No tengo un producto con ese Id");
-	}
-	
-	// TOSTRING()
-	@Override
-	public String toString() {
-		return "Almacen [nombre=" + nombre + ", productos=" + productos + "]";
+		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
 	}
 }
