@@ -58,7 +58,7 @@ public class Almacen {
 
 			return productos;
 		} catch (SQLException e) {
-			throw new RuntimeException("Ha fallado la consulta");
+			throw new RuntimeException("Ha fallado la consulta", e);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class Almacen {
 
 			return producto;
 		} catch (SQLException e) {
-			throw new RuntimeException("Ha fallado la consulta");
+			throw new RuntimeException("Ha fallado la consulta", e);
 		}
 	}
 
