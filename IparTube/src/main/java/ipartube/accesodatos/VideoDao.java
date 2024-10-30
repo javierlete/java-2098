@@ -11,6 +11,15 @@ import ipartube.modelos.Autor;
 import ipartube.modelos.Video;
 
 public class VideoDao {
+	static {
+		try {
+			System.out.println("Cargando driver");
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("No se ha encontrado el driver", e);
+		}
+	}
+	
 	private static final String sqlSelect = """
 			SELECT v.id AS v_id, v.nombre AS v_nombre, v.descripcion AS v_descripcion, v.url AS v_url
 			    , a.id AS a_id, a.nombre AS a_nombre, a.descripcion AS a_descripcion
