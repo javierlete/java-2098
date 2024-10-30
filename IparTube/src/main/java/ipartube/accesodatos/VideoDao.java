@@ -7,12 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import ipartube.modelos.Autor;
 import ipartube.modelos.Video;
 
 public class VideoDao {
 	private static final String url = "jdbc:sqlite:C:\\Users\\html.IPARTEKAULA\\git\\java-2098\\IparTube\\bdd\\ipartube.db";
 	
-	private static final String sqlSelect = "SELECT * FROM videos";
+	private static final String sqlSelect = """
+			SELECT v.id AS v_id, v.nombre AS v_nombre, v.descripcion AS v_descripcion, v.url AS v_url
+			    , a.id AS a_id, a.nombre AS a_nombre, a.descripcion AS a_descripcion
+			FROM videos v
+			JOIN autores a ON v.autor_id = a.id
+			"""; // "SELECT * FROM videos_autores"
 
 	static {
 		try {
@@ -27,10 +33,14 @@ public class VideoDao {
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sqlSelect)) {
 			Video video = null;
+			Autor autor = null;
+			
 			ArrayList<Video> videos = new ArrayList<>();
 			
 			while(rs.next()) {
-				video = new Video(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"), rs.getString("url"), null);
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"), rs.getString("v_url"), autor);
+
 				videos.add(video);
 			}
 			
