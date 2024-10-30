@@ -50,7 +50,7 @@ public class Almacen {
 			Producto producto = null;
 
 			productos.clear();
-			
+
 			while (rs.next()) {
 				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
 				productos.add(producto);
@@ -64,14 +64,29 @@ public class Almacen {
 
 	// MÉTODOS DE INSTANCIA
 	public Producto getProductoPorId(Long id) {
-		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
+		String sql = "SELECT * FROM productos WHERE id=" + id;
+
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql)) {
+			Producto producto = null;
+
+			if (rs.next()) {
+				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
+			}
+
+			return producto;
+		} catch (SQLException e) {
+			throw new RuntimeException("Ha fallado la consulta", e);
+		}
 	}
 
 	public Producto meterProducto(Producto producto) {
-		String sql = "INSERT INTO productos (nombre, precio) VALUES ('%s', %s)";
+		String sql = String.format("INSERT INTO productos (nombre, precio) VALUES ('%s', %s)", producto.getNombre(),
+				producto.getPrecio());
 
 		try (Connection con = DriverManager.getConnection(url, user, pass); Statement st = con.createStatement()) {
-			st.executeUpdate(String.format(sql, producto.getNombre(), producto.getPrecio()));
+			st.executeUpdate(sql);
 
 			return producto;
 		} catch (SQLException e) {
@@ -80,10 +95,25 @@ public class Almacen {
 	}
 
 	public Producto modificarProducto(Producto producto) {
-		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
+		String sql = String.format("UPDATE productos SET nombre='%s', precio=%s WHERE id=%s", producto.getNombre(),
+				producto.getPrecio(), producto.getId());
+
+		try (Connection con = DriverManager.getConnection(url, user, pass); Statement st = con.createStatement()) {
+			st.executeUpdate(sql);
+
+			return producto;
+		} catch (SQLException e) {
+			throw new RuntimeException("Ha fallado la consulta", e);
+		}
 	}
 
 	public void eliminarProducto(Long id) {
-		throw new UnsupportedOperationException("NO ESTÁ IMPLEMENTADO");
+		String sql = "DELETE FROM productos WHERE id=" + id;
+
+		try (Connection con = DriverManager.getConnection(url, user, pass); Statement st = con.createStatement()) {
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			throw new RuntimeException("Ha fallado la consulta", e);
+		}
 	}
 }
