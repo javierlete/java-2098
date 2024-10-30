@@ -27,6 +27,9 @@ public class VideoDao {
 			JOIN autores a ON v.autor_id = a.id
 			"""; // "SELECT * FROM videos_autores"
 
+	private static final String sqlSelectId = sqlSelect + " WHERE v_id=";
+
+	
 	public static ArrayList<Video> obtenerTodos() {
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
@@ -44,6 +47,24 @@ public class VideoDao {
 			}
 			
 			return videos;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+	
+	public static Video obtenerPorId(Long id) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sqlSelectId + id)) {
+			Video video = null;
+			Autor autor = null;
+			
+			if(rs.next()) {
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"), rs.getString("v_url"), autor);
+			}
+			
+			return video;
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}

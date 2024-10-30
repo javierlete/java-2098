@@ -1,22 +1,28 @@
+<%@page import="ipartube.modelos.Video"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
+
+<%
+Video video = (Video) request.getAttribute("video");
+%>
+
 <div class="row">
 	<div class="offset-lg-2 col-lg-8">
 		<div class="card">
 			<div class="ratio ratio-16x9">
 				<iframe
-					src="https://www.youtube.com/embed/Sagg08DrO5U?si=VYibj1iOIbiRA22O"
+					src="<%=video.getUrl() %>"
 					title="YouTube video player"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 			</div>
 			<div class="card-body">
 				<div class="d-flex">
-					<div class="pe-4">Autor</div>
+					<div class="pe-4"><%=video.getAutor().getNombre() %></div>
 					<div>
-						<h5 class="card-title">Video guay</h5>
-						<p class="card-text">Descripción</p>
+						<h5 class="card-title"><%=video.getNombre() %></h5>
+						<p class="card-text"><%=video.getDescripcion() %></p>
 					</div>
 				</div>
 			</div>
