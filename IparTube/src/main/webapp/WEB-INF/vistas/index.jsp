@@ -24,7 +24,7 @@ ArrayList<Video> videos = (ArrayList<Video>)request.getAttribute("videos");
 				<p class="card-text pb-5"><%=v.getDescripcion()%></p>
 			</div>
 			<div class="card-footer text-end z-2 position-absolute bottom-0 w-100">
-				<small class="text-body-secondary"><a href="autor?id=<%=1%>"><%="Autor sin rellenar"%></a></small>
+				<small class="text-body-secondary"><a href="autor?id=<%=v.getAutor().getId()%>"><%=v.getAutor().getNombre()%></a></small>
 			</div>
 		</div>
 	</div>
