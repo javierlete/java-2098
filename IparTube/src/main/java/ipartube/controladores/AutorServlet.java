@@ -18,6 +18,8 @@ public class AutorServlet extends HttpServlet {
 		Long id = Long.parseLong(sId);
 		
 		request.setAttribute("autor", AutorDao.obtenerPorId(id));
+		request.setAttribute("videos", AutorDao.obtenerPorIdVideos(id));
+		
 		request.getRequestDispatcher("/WEB-INF/vistas/autor.jsp").forward(request, response);
 	}
 }
