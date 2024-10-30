@@ -1,15 +1,22 @@
+<%@page import="ipartube.modelos.Autor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
+
+<%
+Autor autor = (Autor) request.getAttribute("autor");
+%>
+
 <div class="card mb-3">
 	<div class="row g-0">
 		<div class="col-md-4">
-			<img src="https://picsum.photos/400/400" class="img-fluid rounded-start" alt="...">
+			<img src="https://picsum.photos/400/400"
+				class="img-fluid rounded-start" alt="...">
 		</div>
 		<div class="col-md-8">
 			<div class="card-body">
-				<h2 class="card-title display-1">Autor 1</h2>
-				<p class="card-text">Breve descripción del propio autor</p>
+				<h2 class="card-title display-1"><%=autor.getNombre() %></h2>
+				<p class="card-text"><%=autor.getDescripcion() %></p>
 			</div>
 		</div>
 	</div>
