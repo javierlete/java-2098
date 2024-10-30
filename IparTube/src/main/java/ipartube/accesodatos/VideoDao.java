@@ -11,8 +11,6 @@ import ipartube.modelos.Autor;
 import ipartube.modelos.Video;
 
 public class VideoDao {
-	private static final String url = "jdbc:sqlite:C:\\Users\\html.IPARTEKAULA\\git\\java-2098\\IparTube\\bdd\\ipartube.db";
-	
 	private static final String sqlSelect = """
 			SELECT v.id AS v_id, v.nombre AS v_nombre, v.descripcion AS v_descripcion, v.url AS v_url
 			    , a.id AS a_id, a.nombre AS a_nombre, a.descripcion AS a_descripcion
@@ -20,16 +18,8 @@ public class VideoDao {
 			JOIN autores a ON v.autor_id = a.id
 			"""; // "SELECT * FROM videos_autores"
 
-	static {
-		try {
-			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("No se ha encontrado el driver", e);
-		}
-	}
-	
 	public static ArrayList<Video> obtenerTodos() {
-		try (Connection con = DriverManager.getConnection(url);
+		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sqlSelect)) {
 			Video video = null;
