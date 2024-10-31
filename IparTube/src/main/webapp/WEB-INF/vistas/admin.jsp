@@ -1,6 +1,13 @@
+<%@page import="ipartube.modelos.Video"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
+
+<%
+@SuppressWarnings("unchecked")
+ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+%>
 
 <table class="table table-striped table-hover table-bordered">
 	<caption>Videos</caption>
@@ -17,16 +24,15 @@
 
 	<tbody>
 		<%
-		for (int i = 1; i <= 20; i++) {
+		for (Video v: videos) {
 		%>
 		<tr>
-			<th><%=i %></th>
-			<td>Nombre <%=i %></td>
-			<td>Descripción <%=i %></td>
-			<td>Autor <%=i %></td>
-			<td>
-				<a class="btn btn-sm btn-primary" href="video?id=<%=i %>">Editar</a>
-				<a class="btn btn-sm btn-danger" href="video-borrar?id=<%=i %>">Borrar</a>
+			<th><%=v.getId()%></th>
+			<td><%=v.getNombre()%></td>
+			<td><%=v.getDescripcion()%></td>
+			<td><%=v.getAutor().getNombre()%></td>
+			<td><a class="btn btn-sm btn-primary" href="video?id=<%=v.getId()%>">Editar</a>
+				<a class="btn btn-sm btn-danger" href="video-borrar?id=<%=v.getId()%>">Borrar</a>
 			</td>
 		</tr>
 		<%
@@ -39,9 +45,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>
-				<a class="btn btn-sm btn-primary" href="video">Añadir</a>
-			</td>
+			<td><a class="btn btn-sm btn-primary" href="video">Añadir</a></td>
 		</tr>
 	</tfoot>
 </table>
