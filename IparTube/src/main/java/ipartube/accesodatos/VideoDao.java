@@ -20,7 +20,7 @@ public class VideoDao {
 			throw new RuntimeException("No se ha encontrado el driver", e);
 		}
 	}
-	
+
 	private static final String sqlSelect = """
 			SELECT v.id AS v_id, v.nombre AS v_nombre, v.descripcion AS v_descripcion, v.url AS v_url
 			    , a.id AS a_id, a.nombre AS a_nombre, a.descripcion AS a_descripcion
@@ -33,56 +33,56 @@ public class VideoDao {
 	private static final String sqlUpdate = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
 	private static final String sqlDelete = "DELETE FROM videos WHERE id=?";
 
-	
 	public static ArrayList<Video> obtenerTodos() {
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sqlSelect)) {
 			Video video = null;
 			Autor autor = null;
-			
+
 			ArrayList<Video> videos = new ArrayList<>();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
-				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"), rs.getString("v_url"), autor);
+				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
+						rs.getString("v_url"), autor);
 
 				videos.add(video);
 			}
-			
+
 			return videos;
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
 	}
-	
+
 	public static Video obtenerPorId(Long id) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sqlSelectId + id)) {
 			Video video = null;
 			Autor autor = null;
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
-				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"), rs.getString("v_url"), autor);
+				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
+						rs.getString("v_url"), autor);
 			}
-			
+
 			return video;
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
 	}
-	
+
 	public static void insertar(Video video) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
-				PreparedStatement pst = con.prepareStatement(sqlInsert);
-			) {
+				PreparedStatement pst = con.prepareStatement(sqlInsert);) {
 			pst.setString(1, video.getNombre());
 			pst.setString(2, video.getDescripcion());
 			pst.setString(3, video.getUrl());
 			pst.setLong(4, video.getAutor().getId());
-			
+
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
@@ -91,26 +91,24 @@ public class VideoDao {
 
 	public static void modificar(Video video) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
-				PreparedStatement pst = con.prepareStatement(sqlUpdate);
-				) {
+				PreparedStatement pst = con.prepareStatement(sqlUpdate);) {
 			pst.setString(1, video.getNombre());
 			pst.setString(2, video.getDescripcion());
 			pst.setString(3, video.getUrl());
 			pst.setLong(4, video.getAutor().getId());
 			pst.setLong(5, video.getId());
-			
+
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
 	}
-	
+
 	public static void borrar(Long id) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
-				PreparedStatement pst = con.prepareStatement(sqlDelete);
-				) {
+				PreparedStatement pst = con.prepareStatement(sqlDelete);) {
 			pst.setLong(1, id);
-			
+
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
