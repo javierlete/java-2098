@@ -20,9 +20,29 @@ public class AutorDao {
 		}
 	}
 	
+	private static final String sqlSelect = "SELECT * FROM autores";
 	private static final String sqlSelectId = "SELECT * FROM autores WHERE id=";
 	private static final String sqlSelectIdVideos = "SELECT * FROM videos WHERE autor_id=";
 	
+	public static ArrayList<Autor> obtenerTodos() {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sqlSelect)) {
+			ArrayList<Autor> autores = new ArrayList<>();
+			
+			Autor autor = null;
+			
+			while(rs.next()) {
+				autor = new Autor(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"));
+				autores.add(autor);
+			}
+			
+			return autores;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
 	public static Autor obtenerPorId(Long id) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
