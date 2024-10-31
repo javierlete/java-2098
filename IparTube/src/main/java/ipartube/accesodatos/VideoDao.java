@@ -2,6 +2,7 @@ package ipartube.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,8 @@ public class VideoDao {
 			"""; // "SELECT * FROM videos_autores"
 
 	private static final String sqlSelectId = sqlSelect + " WHERE v_id=";
+	private static final String sqlInsert = "INSERT INTO videos (nombre, descripcion, url, autor_id) VALUES (?, ?, ?, ?)";
+	private static final String sqlUpdate = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
 
 	
 	public static ArrayList<Video> obtenerTodos() {
@@ -65,6 +68,37 @@ public class VideoDao {
 			}
 			
 			return video;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+	
+	public static void insertar(Video video) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				PreparedStatement pst = con.prepareStatement(sqlInsert);
+			) {
+			pst.setString(1, video.getNombre());
+			pst.setString(2, video.getDescripcion());
+			pst.setString(3, video.getUrl());
+			pst.setLong(4, video.getAutor().getId());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static void modificar(Video video) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				PreparedStatement pst = con.prepareStatement(sqlUpdate);
+				) {
+			pst.setString(1, video.getNombre());
+			pst.setString(2, video.getDescripcion());
+			pst.setString(3, video.getUrl());
+			pst.setLong(4, video.getAutor().getId());
+			pst.setLong(5, video.getId());
+			
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}

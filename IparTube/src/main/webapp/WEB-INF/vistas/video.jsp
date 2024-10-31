@@ -13,6 +13,8 @@ Video video = (Video) request.getAttribute("video");
 
 <h2>Edición de video</h2>
 
+<%-- <p><%=video %></p> --%>
+
 <form action="video" method="post">
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
@@ -22,39 +24,39 @@ Video video = (Video) request.getAttribute("video");
 		</div>
 	</div>
 
+	
+
 	<div class="row mb-3">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="nombre"
+			<input type="text" class="form-control <%= video != null && video.getErrorNombre() != null ? "is-invalid" : ""%>" id="nombre"
 				name="nombre" value="<%=video == null ? "" : video.getNombre()%>">
-			<div class="invalid-feedback">El nombre debe tener como mínimo
-				3 caracteres</div>
+			<div class="invalid-feedback"><%= video != null && video.getErrorNombre() != null ? video.getErrorNombre() : "" %></div>
 		</div>
 	</div>
 
 	<div class="row mb-3">
-		<label for="url" class="col-sm-2 col-form-label">url</label>
+		<label for="url" class="col-sm-2 col-form-label">Url</label>
 		<div class="col-sm-10">
-			<input type="url" class="form-control" id="url" name="url"
+			<input type="url" class="form-control <%= video != null && video.getErrorUrl() != null ? "is-invalid" : ""%>" id="url" name="url"
 				value="<%=video == null ? "" : video.getUrl()%>">
-			<div class="invalid-feedback">La URL debe ser válida</div>
+			<div class="invalid-feedback"><%= video != null && video.getErrorUrl() != null ? video.getErrorUrl() : "" %></div>
 		</div>
 	</div>
 
 	<div class="row mb-3">
 		<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" id="descripcion"
+			<textarea class="form-control <%= video != null && video.getErrorDescripcion() != null ? "is-invalid" : ""%>" id="descripcion"
 				name="descripcion"><%=video == null ? "" : video.getDescripcion()%></textarea>
-			<div class="invalid-feedback">La descripción no debe tener más
-				de 150 caracteres</div>
+			<div class="invalid-feedback"><%= video != null && video.getErrorDescripcion() != null ? video.getErrorDescripcion() : "" %></div>
 		</div>
 	</div>
 
 	<div class="row mb-3">
 		<label for="autor" class="col-sm-2 col-form-label">Autor</label>
 		<div class="col-sm-10">
-			<select class="form-select" id="autor" name="autor">
+			<select class="form-select <%= video != null && video.getErrorAutor() != null ? "is-invalid" : ""%>" id="autor" name="autor">
 				<option value="0">Ninguno seleccionado</option>
 				<%
 				for (Autor a : autores) {
@@ -64,7 +66,7 @@ Video video = (Video) request.getAttribute("video");
 				}
 				%>
 			</select>
-			<div class="invalid-feedback"></div>
+			<div class="invalid-feedback"><%= video != null && video.getErrorAutor() != null ? video.getErrorAutor() : "" %></div>
 		</div>
 	</div>
 
