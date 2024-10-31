@@ -31,6 +31,7 @@ public class VideoDao {
 	private static final String sqlSelectId = sqlSelect + " WHERE v_id=";
 	private static final String sqlInsert = "INSERT INTO videos (nombre, descripcion, url, autor_id) VALUES (?, ?, ?, ?)";
 	private static final String sqlUpdate = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
+	private static final String sqlDelete = "DELETE FROM videos WHERE id=?";
 
 	
 	public static ArrayList<Video> obtenerTodos() {
@@ -97,6 +98,18 @@ public class VideoDao {
 			pst.setString(3, video.getUrl());
 			pst.setLong(4, video.getAutor().getId());
 			pst.setLong(5, video.getId());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+	
+	public static void borrar(Long id) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				PreparedStatement pst = con.prepareStatement(sqlDelete);
+				) {
+			pst.setLong(1, id);
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
