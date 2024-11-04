@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/admin")
-public class AdminFilter extends HttpFilter implements Filter {
+@WebFilter({"/video", "/video-borrar"})
+public class UsuarioFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = -8094428104085743907L;
 
@@ -26,7 +26,7 @@ public class AdminFilter extends HttpFilter implements Filter {
 		HttpSession session = req.getSession();
 		Autor usuario = (Autor) session.getAttribute("usuario");
 		
-		if(usuario == null || !usuario.getEmail().equals("admin@email.net")) {
+		if(usuario == null) {
 			res.sendRedirect("login");
 			return;
 		}
