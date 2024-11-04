@@ -33,7 +33,7 @@ public class Video {
 	}
 
 	public void setNombre(String nombre) {
-		if (nombre.isBlank()) {
+		if (nombre == null || nombre.isBlank()) {
 			errorNombre = "El nombre no puede estar vacío";
 		}
 
@@ -45,7 +45,7 @@ public class Video {
 	}
 
 	public void setDescripcion(String descripcion) {
-		if (descripcion.length() > 2000) {
+		if (descripcion != null && descripcion.length() > 2000) {
 			errorDescripcion = "La descripción no puede tener más de 2000 caracteres";
 		}
 
@@ -57,7 +57,7 @@ public class Video {
 	}
 
 	public void setUrl(String url) {
-		if (url.isBlank()) {
+		if (url == null || url.isBlank()) {
 			errorUrl = "No se puede dejar la URL en blanco. ¿Qué video iba a mostrar?";
 		}
 		
@@ -69,7 +69,7 @@ public class Video {
 	}
 
 	public void setAutor(Autor autor) {
-		if (autor.getId() == 0) {
+		if (autor != null && autor.getId() == 0) {
 			errorAutor = "No se ha seleccionado ningún autor";
 		}
 		
