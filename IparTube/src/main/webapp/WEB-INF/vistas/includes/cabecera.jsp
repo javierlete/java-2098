@@ -1,5 +1,9 @@
+<%@page import="ipartube.modelos.Autor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+Autor usuario = (Autor) session.getAttribute("usuario");
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,11 +16,13 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
+	<nav class="navbar navbar-expand-lg bg-dark sticky-top"
+		data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="index">IparTube</a>
 			<button class="navbar-toggler" type="button"
@@ -30,10 +36,33 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="navbar-text"><%=usuario != null ? usuario.getNombre() : ""%></li>
+					<%
+					if (usuario != null) {
+					%>
 					<li class="nav-item"><a class="nav-link" href="admin">Administración</a></li>
+					<%
+					}
+					if (usuario == null) {
+					%>
+					<li class="nav-item"><a class="nav-link" href="registro">Registro
+							de autor</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="login">Iniciar
+							sesión</a></li>
+					<%
+					}
+
+					if (usuario != null) {
+					%>
+					<li class="nav-item"><a class="nav-link" href="logout">Cerrar
+							sesión</a></li>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	
-	<%= "<main class='container mt-4 mb-5 pb-5'>" %>
+
+	<%="<main class='container mt-4 mb-5 pb-5'>"%>
