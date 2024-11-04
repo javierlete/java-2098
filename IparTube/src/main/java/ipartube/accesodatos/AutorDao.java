@@ -2,6 +2,7 @@ package ipartube.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,6 +24,7 @@ public class AutorDao {
 	private static final String sqlSelect = "SELECT * FROM autores";
 	private static final String sqlSelectId = "SELECT * FROM autores WHERE id=";
 	private static final String sqlSelectIdVideos = "SELECT * FROM videos WHERE autor_id=";
+	private static final String sqlInsert = "INSERT INTO autores (email, password, nombre, descripcion) VALUES (?,?,?,?)";
 	
 	public static ArrayList<Autor> obtenerTodos() {
 		try (Connection con = DriverManager.getConnection(Globales.url);
@@ -33,7 +35,7 @@ public class AutorDao {
 			Autor autor = null;
 			
 			while(rs.next()) {
-				autor = new Autor(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"));
+				autor = new Autor(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("nombre"), rs.getString("descripcion"));
 				autores.add(autor);
 			}
 			
@@ -50,7 +52,7 @@ public class AutorDao {
 			Autor autor = null;
 			
 			if(rs.next()) {
-				autor = new Autor(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"));
+				autor = new Autor(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("nombre"), rs.getString("descripcion"));
 			}
 			
 			return autor;
@@ -74,6 +76,23 @@ public class AutorDao {
 			}
 			
 			return videos;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static void insertar(Autor autor) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				PreparedStatement pst = con.prepareStatement(sqlInsert);
+				) {
+
+			pst.setString(1, autor.getEmail());
+			pst.setString(2, autor.getPassword());
+			pst.setString(3, autor.getNombre());
+			pst.setString(4, autor.getDescripcion());
+			
+			pst.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}

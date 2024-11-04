@@ -23,7 +23,7 @@ public class VideoDao {
 
 	private static final String sqlSelect = """
 			SELECT v.id AS v_id, v.nombre AS v_nombre, v.descripcion AS v_descripcion, v.url AS v_url
-			    , a.id AS a_id, a.nombre AS a_nombre, a.descripcion AS a_descripcion
+			    , a.id AS a_id, a.email AS a_email, a.password AS a_password, a.nombre AS a_nombre, a.descripcion AS a_descripcion
 			FROM videos v
 			JOIN autores a ON v.autor_id = a.id
 			"""; // "SELECT * FROM videos_autores"
@@ -43,7 +43,7 @@ public class VideoDao {
 			ArrayList<Video> videos = new ArrayList<>();
 
 			while (rs.next()) {
-				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
 				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
 						rs.getString("v_url"), autor);
 
@@ -64,7 +64,7 @@ public class VideoDao {
 			Autor autor = null;
 
 			if (rs.next()) {
-				autor = new Autor(rs.getLong("a_id"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
 				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
 						rs.getString("v_url"), autor);
 			}
