@@ -36,8 +36,13 @@ Autor usuario = (Autor) session.getAttribute("usuario");
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="navbar-text"><%=usuario != null ? usuario.getNombre() : ""%></li>
 					<%
+					if (usuario != null) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="autor?id=<%=usuario.getId()%>"><%=usuario.getNombre()%></a></li>
+					<%
+					}
 					if (usuario != null) {
 					%>
 					<li class="nav-item"><a class="nav-link" href="admin">Administración</a></li>
