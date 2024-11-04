@@ -45,7 +45,7 @@ public class VideoServlet extends HttpServlet {
 		Long idAutor = Long.parseLong(sIdAutor);
 
 		// 3. Crear objetos de modelo
-		Autor autor = new Autor(idAutor, null, null);
+		Autor autor = new Autor(idAutor, null, null, null, null);
 		Video video = new Video(id, nombre, descripcion, url, autor);
 
 		// 4. Ejecutar la lógica de negocio
