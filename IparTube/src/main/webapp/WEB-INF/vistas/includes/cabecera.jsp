@@ -43,7 +43,7 @@ Autor usuario = (Autor) session.getAttribute("usuario");
 						href="autor?id=<%=usuario.getId()%>"><%=usuario.getNombre()%></a></li>
 					<%
 					}
-					if (usuario != null) {
+					if (usuario != null && usuario.getEmail().equals("admin@email.net")) {
 					%>
 					<li class="nav-item"><a class="nav-link" href="admin">Administración</a></li>
 					<%

@@ -26,7 +26,7 @@ public class AdminFilter extends HttpFilter implements Filter {
 		HttpSession session = req.getSession();
 		Autor usuario = (Autor) session.getAttribute("usuario");
 		
-		if(usuario == null) {
+		if(usuario == null || !usuario.getEmail().equals("admin@email.net")) {
 			res.sendRedirect("login");
 			return;
 		}
