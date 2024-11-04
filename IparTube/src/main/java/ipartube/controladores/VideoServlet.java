@@ -38,7 +38,16 @@ public class VideoServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String descripcion = request.getParameter("descripcion");
 		String url = request.getParameter("url");
-		String sIdAutor = request.getParameter("autor");
+
+		Autor usuario = (Autor) request.getSession().getAttribute("usuario");
+
+		String sIdAutor;
+
+		if (usuario.getEmail().equals("admin@email.net")) {
+			sIdAutor = request.getParameter("autor");
+		} else {
+			sIdAutor = usuario.getId().toString();
+		}
 
 		// 2. Convertir los datos necesarios
 		Long id = sId.isBlank() ? null : Long.parseLong(sId);
@@ -65,8 +74,12 @@ public class VideoServlet extends HttpServlet {
 		}
 
 		// 5. Preparar información para la siguiente petición
-		// 6. Pasar a la siguiente vista
-		response.sendRedirect("admin");
+		// 6. Pasar a la siguiente vistaç
+		if (usuario.getEmail().equals("admin@email.net")) {
+			response.sendRedirect("admin");
+		} else {
+			response.sendRedirect("autor?id=" + usuario.getId());
+		}
 	}
 
 }
