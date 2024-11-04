@@ -24,6 +24,8 @@ public class AutorDao {
 	private static final String sqlSelect = "SELECT * FROM autores";
 	private static final String sqlSelectId = "SELECT * FROM autores WHERE id=";
 	private static final String sqlSelectIdVideos = "SELECT * FROM videos WHERE autor_id=";
+	private static final String sqlSelectEmail = "SELECT * FROM autores WHERE email = ?";
+	
 	private static final String sqlInsert = "INSERT INTO autores (email, password, nombre, descripcion) VALUES (?,?,?,?)";
 	
 	public static ArrayList<Autor> obtenerTodos() {
@@ -49,6 +51,26 @@ public class AutorDao {
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sqlSelectId + id)) {
+			Autor autor = null;
+			
+			if(rs.next()) {
+				autor = new Autor(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("nombre"), rs.getString("descripcion"));
+			}
+			
+			return autor;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+	
+	public static Autor obtenerPorEmail(String email) {
+		try (Connection con = DriverManager.getConnection(Globales.url);
+				PreparedStatement pst = con.prepareStatement(sqlSelectEmail);
+				) {
+			pst.setString(1, email);
+			
+			ResultSet rs = pst.executeQuery();
+			
 			Autor autor = null;
 			
 			if(rs.next()) {
