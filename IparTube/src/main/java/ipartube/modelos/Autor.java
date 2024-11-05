@@ -3,6 +3,8 @@ package ipartube.modelos;
 import java.util.ArrayList;
 
 public class Autor {
+	private static final String ADMIN_EMAIL = "admin@email.net";
+
 	private Long id;
 	private String email;
 	private String password;
@@ -61,6 +63,10 @@ public class Autor {
 
 	public ArrayList<Video> getVideos() {
 		return videos;
+	}
+
+	public boolean isAdmin() {
+		return ADMIN_EMAIL.equals(email);
 	}
 
 	@Override

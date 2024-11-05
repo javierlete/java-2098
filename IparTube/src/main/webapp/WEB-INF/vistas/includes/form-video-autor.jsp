@@ -43,6 +43,7 @@ Video formVideo = (Video) request.getAttribute("video");
 		<label for="" class="col-sm-3 col-form-label"></label>
 		<div class="col-sm">
 			<button type="submit" class="btn btn-primary">Guardar</button>
+			<a onclick="return confirm('¿Estás seguro de borrar este video?')" href="video-borrar?id=<%=formVideo.getId()%>" class="btn btn-danger">Borrar</a>
 		</div>
 	</div>
 

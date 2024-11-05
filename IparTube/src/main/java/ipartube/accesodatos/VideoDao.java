@@ -34,7 +34,8 @@ public class VideoDao {
 	private static final String sqlInsert = "INSERT INTO videos (nombre, descripcion, url, autor_id) VALUES (?, ?, ?, ?)";
 	private static final String sqlUpdateAdmin = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
 	private static final String sqlUpdateUsuario = "UPDATE videos SET nombre=?, descripcion=?, url=? WHERE autor_id=? AND id=?";
-	private static final String sqlDelete = "DELETE FROM videos WHERE id=?";
+	private static final String sqlDeleteAdmin = "DELETE FROM videos WHERE id=?";
+	private static final String sqlDeleteUsuario = "DELETE FROM videos WHERE id=? AND autor_id=?";
 
 	public static ArrayList<Video> obtenerTodos() {
 		try (Connection con = DriverManager.getConnection(Globales.url);
@@ -120,11 +121,25 @@ public class VideoDao {
 	}
 
 	public static void borrar(Long id) {
+		borrar(id, null);
+	}
+
+	public static void borrar(Long id, Long autorId) {
+		String sqlDelete = autorId == null ? sqlDeleteAdmin : sqlDeleteUsuario;
+		
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				PreparedStatement pst = con.prepareStatement(sqlDelete);) {
 			pst.setLong(1, id);
 
-			pst.executeUpdate();
+			if(autorId != null) {
+				pst.setLong(2, autorId);
+			}
+			
+			int numRegistrosModificados = pst.executeUpdate();
+			
+			if(numRegistrosModificados == 0) {
+				throw new RuntimeException("Ha habido un error en el borrado");
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
