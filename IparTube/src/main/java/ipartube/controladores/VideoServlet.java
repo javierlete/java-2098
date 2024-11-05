@@ -28,7 +28,7 @@ public class VideoServlet extends HttpServlet {
 
 		String sIdAutor;
 
-		if (usuario.getEmail().equals("admin@email.net")) {
+		if (usuario.isAdmin()) {
 			sIdAutor = request.getParameter("autor");
 		} else {
 			sIdAutor = usuario.getId().toString();
@@ -55,12 +55,12 @@ public class VideoServlet extends HttpServlet {
 		if (video.getId() == null) {
 			VideoDao.insertar(video);
 		} else {
-			VideoDao.modificar(video, usuario.getEmail().equals("admin@email.net"));
+			VideoDao.modificar(video, usuario.isAdmin());
 		}
 
 		// 5. Preparar información para la siguiente petición
-		// 6. Pasar a la siguiente vistaç
-		if (usuario.getEmail().equals("admin@email.net")) {
+		// 6. Pasar a la siguiente vista
+		if (usuario.isAdmin()) {
 			response.sendRedirect("admin");
 		} else {
 			response.sendRedirect("autor?id=" + usuario.getId());
