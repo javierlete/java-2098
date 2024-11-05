@@ -66,18 +66,14 @@ public class VideoServlet extends HttpServlet {
 		}
 
 		if (video.getId() == null) {
-			VideoDao.insertar(video);
-			
+			video = VideoDao.insertar(video);
 		} else {
 			VideoDao.modificar(video, usuario.isAdmin());
-			
-			if(!miniatura.getSubmittedFileName().isBlank()) {
-				miniatura.write(rutaMiniaturas + "/" + video.getId() + ".jpg");				
-			}
 		}
 
-
-
+		if(!miniatura.getSubmittedFileName().isBlank()) {
+			miniatura.write(rutaMiniaturas + "/" + video.getId() + ".jpg");				
+		}
 
 		// 5. Preparar información para la siguiente petición
 		// 6. Pasar a la siguiente vista
