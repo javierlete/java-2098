@@ -4,9 +4,18 @@
 <%
 Video formVideo = (Video) request.getAttribute("video");
 %>
-<form action="video" method="post">
+<form action="video" method="post" enctype="multipart/form-data">
 	<input type="hidden" id="id" name="id"
 		value="<%=formVideo == null ? "" : formVideo.getId()%>">
+
+	<div class="row mb-3">
+		<label for="miniatura" class="col-sm-3 col-form-label">Miniatura</label>
+		<div class="col-sm">
+			<input type="file" class="form-control" id="miniatura"
+				name="miniatura" value="" accept="image/jpeg">
+			<div class="invalid-feedback"></div>
+		</div>
+	</div>
 
 	<div class="row mb-3">
 		<label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
@@ -24,7 +33,8 @@ Video formVideo = (Video) request.getAttribute("video");
 		<div class="col-sm">
 			<input type="url"
 				class="form-control <%=formVideo != null && formVideo.getErrorUrl() != null ? "is-invalid" : ""%>"
-				id="url" name="url" value="<%=formVideo == null ? "" : formVideo.getUrl()%>">
+				id="url" name="url"
+				value="<%=formVideo == null ? "" : formVideo.getUrl()%>">
 			<div class="invalid-feedback"><%=formVideo != null && formVideo.getErrorUrl() != null ? formVideo.getErrorUrl() : ""%></div>
 		</div>
 	</div>
@@ -43,7 +53,14 @@ Video formVideo = (Video) request.getAttribute("video");
 		<label for="" class="col-sm-3 col-form-label"></label>
 		<div class="col-sm">
 			<button type="submit" class="btn btn-primary">Guardar</button>
-			<a onclick="return confirm('¿Estás seguro de borrar este video?')" href="video-borrar?id=<%=formVideo.getId()%>" class="btn btn-danger">Borrar</a>
+			<%
+			if (formVideo != null) {
+			%>
+			<a onclick="return confirm('¿Estás seguro de borrar este video?')"
+				href="video-borrar?id=<%=formVideo.getId()%>" class="btn btn-danger">Borrar</a>
+			<%
+			}
+			%>
 		</div>
 	</div>
 

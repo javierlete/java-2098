@@ -15,7 +15,7 @@ ArrayList<Video> videos = (ArrayList<Video>)request.getAttribute("videos");
 	%>
 	<div class="col">
 		<div class="card h-100">
-			<img src="https://picsum.photos/400/225?<%=v.getId()%>" class="card-img-top"
+			<img src="miniaturas/<%=v.getId()%>.jpg" class="card-img-top"
 				alt="...">
 			<div class="card-body">
 				<h5 class="card-title">
