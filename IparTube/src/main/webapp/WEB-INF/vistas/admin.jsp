@@ -31,7 +31,7 @@ ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
 			<td><%=v.getNombre()%></td>
 			<td><%=v.getDescripcion()%></td>
 			<td><%=v.getAutor().getNombre()%></td>
-			<td><a class="btn btn-sm btn-primary" href="video?id=<%=v.getId()%>">Editar</a>
+			<td><a class="btn btn-sm btn-primary" href="videoform?id=<%=v.getId()%>">Editar</a>
 				<a class="btn btn-sm btn-danger" href="video-borrar?id=<%=v.getId()%>">Borrar</a>
 			</td>
 		</tr>
@@ -45,7 +45,7 @@ ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
 			<td></td>
 			<td></td>
 			<td></td>
-			<td><a class="btn btn-sm btn-primary" href="video">Añadir</a></td>
+			<td><a class="btn btn-sm btn-primary" href="videoform">Añadir</a></td>
 		</tr>
 	</tfoot>
 </table>

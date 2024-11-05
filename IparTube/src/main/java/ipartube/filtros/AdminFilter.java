@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/admin")
+@WebFilter({"/admin", "/videoform"})
 public class AdminFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = -8094428104085743907L;

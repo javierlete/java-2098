@@ -16,21 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class VideoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String sId = request.getParameter("id");
-
-		if (sId != null) {
-			Long id = Long.parseLong(sId);
-
-			request.setAttribute("video", VideoDao.obtenerPorId(id));
-		}
-
-		request.setAttribute("autores", AutorDao.obtenerTodos());
-
-		request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 1. Recoger información de la petición
