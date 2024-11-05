@@ -70,7 +70,7 @@ public class VideoServlet extends HttpServlet {
 		if (video.getId() == null) {
 			VideoDao.insertar(video);
 		} else {
-			VideoDao.modificar(video);
+			VideoDao.modificar(video, usuario.getEmail().equals("admin@email.net"));
 		}
 
 		// 5. Preparar información para la siguiente petición

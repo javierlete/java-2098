@@ -12,6 +12,8 @@ import ipartube.modelos.Autor;
 import ipartube.modelos.Video;
 
 public class VideoDao {
+	private static final boolean ADMIN = true;
+
 	static {
 		try {
 			System.out.println("Cargando driver");
@@ -30,7 +32,8 @@ public class VideoDao {
 
 	private static final String sqlSelectId = sqlSelect + " WHERE v_id=";
 	private static final String sqlInsert = "INSERT INTO videos (nombre, descripcion, url, autor_id) VALUES (?, ?, ?, ?)";
-	private static final String sqlUpdate = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
+	private static final String sqlUpdateAdmin = "UPDATE videos SET nombre=?, descripcion=?, url=?, autor_id=? WHERE id=?";
+	private static final String sqlUpdateUsuario = "UPDATE videos SET nombre=?, descripcion=?, url=? WHERE autor_id=? AND id=?";
 	private static final String sqlDelete = "DELETE FROM videos WHERE id=?";
 
 	public static ArrayList<Video> obtenerTodos() {
@@ -43,7 +46,8 @@ public class VideoDao {
 			ArrayList<Video> videos = new ArrayList<>();
 
 			while (rs.next()) {
-				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"),
+						rs.getString("a_nombre"), rs.getString("a_descripcion"));
 				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
 						rs.getString("v_url"), autor);
 
@@ -64,7 +68,8 @@ public class VideoDao {
 			Autor autor = null;
 
 			if (rs.next()) {
-				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"), rs.getString("a_nombre"), rs.getString("a_descripcion"));
+				autor = new Autor(rs.getLong("a_id"), rs.getString("a_email"), rs.getString("a_password"),
+						rs.getString("a_nombre"), rs.getString("a_descripcion"));
 				video = new Video(rs.getLong("v_id"), rs.getString("v_nombre"), rs.getString("v_descripcion"),
 						rs.getString("v_url"), autor);
 			}
@@ -90,6 +95,12 @@ public class VideoDao {
 	}
 
 	public static void modificar(Video video) {
+		modificar(video, ADMIN);
+	}
+
+	public static void modificar(Video video, boolean admin) {
+		String sqlUpdate = admin ? sqlUpdateAdmin : sqlUpdateUsuario;
+		
 		try (Connection con = DriverManager.getConnection(Globales.url);
 				PreparedStatement pst = con.prepareStatement(sqlUpdate);) {
 			pst.setString(1, video.getNombre());
@@ -98,7 +109,11 @@ public class VideoDao {
 			pst.setLong(4, video.getAutor().getId());
 			pst.setLong(5, video.getId());
 
-			pst.executeUpdate();
+			int numRegistrosModificados = pst.executeUpdate();
+			
+			if(numRegistrosModificados == 0) {
+				throw new RuntimeException("No se ha podido modificar el registro");
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}

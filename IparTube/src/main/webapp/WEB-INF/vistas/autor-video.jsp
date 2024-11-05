@@ -46,8 +46,6 @@ Video video = (Video) request.getAttribute("video");
 		</div>
 	</div>
 
-	<input type="hidden" name="autor" value="<%=usuario.getId()%>">
-
 	<div class="row mb-3">
 		<label for="" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
