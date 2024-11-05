@@ -81,15 +81,23 @@ public class VideoDao {
 		}
 	}
 
-	public static void insertar(Video video) {
+	public static Video insertar(Video video) {
 		try (Connection con = DriverManager.getConnection(Globales.url);
-				PreparedStatement pst = con.prepareStatement(sqlInsert);) {
+				PreparedStatement pst = con.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);) {
 			pst.setString(1, video.getNombre());
 			pst.setString(2, video.getDescripcion());
 			pst.setString(3, video.getUrl());
 			pst.setLong(4, video.getAutor().getId());
 
 			pst.executeUpdate();
+			
+			ResultSet rs = pst.getGeneratedKeys();
+			
+			rs.next();
+			
+			video.setId(rs.getLong(1));
+			
+			return video;
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
