@@ -37,8 +37,11 @@ ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
 	%>
 	<div class="col">
 		<div class="card h-100">
-			<img src="miniaturas/<%=v.getId()%>.jpg"
-				class="card-img-top" alt="...">
+			<div class="ratio ratio-16x9 card-img-top">
+				<div class="text-center bg-secondary-subtle rounded-top border-bottom border-secondary">
+					<img src="miniaturas/<%=v.getId()%>.jpg" class="h-100 rounded-top" alt="...">
+				</div>
+			</div>
 			<div class="card-body">
 				<h5 class="card-title">
 					<a class="link-underline-light text-dark stretched-link"
@@ -57,7 +60,7 @@ ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
 	%>
 	<div class="col">
 		<div class="card h-100 border-primary">
-			<div class="ratio ratio-16x9 card-img-top">
+			<div class="ratio ratio-16x9 card-img-top border-bottom border-secondary bg-secondary-subtle">
 				<img src="imgs/plus-lg.svg" class=""/>
 			</div>
 			<div class="card-body">
