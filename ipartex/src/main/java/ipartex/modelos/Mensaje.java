@@ -6,20 +6,23 @@ import java.util.ArrayList;
 
 public class Mensaje {
 	private static final String FORMATO_FECHA = "yyyy-MM-dd HH:mm";
-	private static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(FORMATO_FECHA);
+	public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(FORMATO_FECHA);
+	
 	private Long id;
 	private Usuario usuario;
 	private LocalDateTime fecha;
 	private String texto;
+	private Long numeroLesGusta;
 	
 	private ArrayList<Usuario> usuariosLesGusta = new ArrayList<Usuario>();
 
-	public Mensaje(Long id, Usuario usuario, LocalDateTime fecha, String texto) {
+	public Mensaje(Long id, Usuario usuario, LocalDateTime fecha, String texto, Long numeroLesGusta) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;
 		this.texto = texto;
+		this.numeroLesGusta = numeroLesGusta;
 	}
 
 	public Long getId() {
@@ -59,7 +62,7 @@ public class Mensaje {
 	}
 	
 	public Long getNumeroLesGusta() {
-		return (long) usuariosLesGusta.size();
+		return numeroLesGusta;
 	}
 	
 	public String getFechaFormateada() {
