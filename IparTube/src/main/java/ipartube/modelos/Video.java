@@ -95,6 +95,10 @@ public class Video {
 	public boolean isCorrecto() {
 		return errorNombre == null && errorDescripcion == null && errorUrl == null && errorAutor == null;
 	}
+	
+	public boolean isExterno() {
+		return url.startsWith("http");
+	}
 
 	@Override
 	public String toString() {

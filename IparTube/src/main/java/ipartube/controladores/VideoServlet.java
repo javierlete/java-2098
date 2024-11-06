@@ -6,6 +6,7 @@ import ipartube.accesodatos.AutorDao;
 import ipartube.accesodatos.VideoDao;
 import ipartube.modelos.Autor;
 import ipartube.modelos.Video;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,8 +25,13 @@ public class VideoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String rutaMiniaturas = request.getServletContext().getRealPath("/miniaturas");
-		System.out.println("RUTA REAL: " + rutaMiniaturas);
+		ServletContext servletContext = request.getServletContext();
+		
+		String rutaMiniaturas = servletContext.getRealPath("/miniaturas");
+		String rutaVideos = servletContext.getRealPath("/videos");
+
+		System.out.println("RUTA REAL VIDEOS: " + rutaVideos);
+		System.out.println("RUTA REAL MINIATURAS: " + rutaMiniaturas);
 		
 		// 1. Recoger información de la petición
 		String sId = request.getParameter("id");
@@ -33,9 +39,15 @@ public class VideoServlet extends HttpServlet {
 		String descripcion = request.getParameter("descripcion");
 		String url = request.getParameter("url");
 
-		Part miniatura = request.getPart("miniatura");
+		Part videoPart = request.getPart("video");
+		Part miniaturaPart = request.getPart("miniatura");
+
+		if(!videoPart.getSubmittedFileName().isBlank()) {
+			url = "videos/" + videoPart.getSubmittedFileName(); 
+		}
 		
-		System.out.println("FICHERO: " + miniatura.getSubmittedFileName());
+		System.out.println("FICHERO VIDEO: " + videoPart.getSubmittedFileName());
+		System.out.println("FICHERO MINIATURA: " + miniaturaPart.getSubmittedFileName());
 
 		Autor usuario = (Autor) request.getSession().getAttribute("usuario");
 
@@ -71,8 +83,12 @@ public class VideoServlet extends HttpServlet {
 			VideoDao.modificar(video, usuario.isAdmin());
 		}
 
-		if(!miniatura.getSubmittedFileName().isBlank()) {
-			miniatura.write(rutaMiniaturas + "/" + video.getId() + ".jpg");				
+		if(!miniaturaPart.getSubmittedFileName().isBlank()) {
+			miniaturaPart.write(rutaMiniaturas + "/" + video.getId() + ".jpg");				
+		}
+
+		if(!videoPart.getSubmittedFileName().isBlank()) {
+			videoPart.write(rutaVideos + "/" + videoPart.getSubmittedFileName());
 		}
 
 		// 5. Preparar información para la siguiente petición

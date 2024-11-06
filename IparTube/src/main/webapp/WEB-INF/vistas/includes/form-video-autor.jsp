@@ -9,6 +9,15 @@ Video formVideo = (Video) request.getAttribute("video");
 		value="<%=formVideo == null ? "" : formVideo.getId()%>">
 
 	<div class="row mb-3">
+		<label for="video" class="col-sm-3 col-form-label">Video</label>
+		<div class="col-sm">
+			<input type="file" class="form-control" id="video"
+				name="video" value="" accept="video/mp4">
+			<div class="invalid-feedback"></div>
+		</div>
+	</div>
+
+	<div class="row mb-3">
 		<label for="miniatura" class="col-sm-3 col-form-label">Miniatura</label>
 		<div class="col-sm">
 			<input type="file" class="form-control" id="miniatura"
@@ -31,7 +40,7 @@ Video formVideo = (Video) request.getAttribute("video");
 	<div class="row mb-3">
 		<label for="url" class="col-sm-3 col-form-label">Url</label>
 		<div class="col-sm">
-			<input type="url"
+			<input type="text"
 				class="form-control <%=formVideo != null && formVideo.getErrorUrl() != null ? "is-invalid" : ""%>"
 				id="url" name="url"
 				value="<%=formVideo == null ? "" : formVideo.getUrl()%>">

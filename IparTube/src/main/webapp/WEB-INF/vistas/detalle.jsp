@@ -10,11 +10,15 @@ Video video = (Video) request.getAttribute("video");
 <div class="row">
 	<div class="offset-lg-2 col-lg-8">
 		<div class="card">
+			<%if (video.isExterno()) { %>
 			<div class="ratio ratio-16x9">
-				<iframe src="<%=video.getUrl()%>" title="YouTube video player"
+				<iframe class="card-img-top" src="<%=video.getUrl()%>" title="YouTube video player"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 			</div>
+			<% } else { %>
+			<video class="w-100 card-img-top" src="<%=video.getUrl()%>" controls></video>
+			<% } %>
 			<div class="card-body">
 				<div class="d-flex">
 					<div class="pe-4"><%=video.getAutor().getNombre()%></div>
