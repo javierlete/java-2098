@@ -25,5 +25,10 @@ public class AutorVideoServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/vistas/autor-video.jsp").forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/vistas/autor-video.jsp").forward(request, response);
+	}
 
 }

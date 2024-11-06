@@ -25,14 +25,16 @@ public class VideoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("REFERER: " + request.getHeader("referer"));
+
 		ServletContext servletContext = request.getServletContext();
-		
+
 		String rutaMiniaturas = servletContext.getRealPath("/miniaturas");
 		String rutaVideos = servletContext.getRealPath("/videos");
 
 		System.out.println("RUTA REAL VIDEOS: " + rutaVideos);
 		System.out.println("RUTA REAL MINIATURAS: " + rutaMiniaturas);
-		
+
 		// 1. Recoger información de la petición
 		String sId = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
@@ -42,12 +44,9 @@ public class VideoServlet extends HttpServlet {
 		Part videoPart = request.getPart("video");
 		Part miniaturaPart = request.getPart("miniatura");
 
-		if(!videoPart.getSubmittedFileName().isBlank()) {
-			url = "videos/" + videoPart.getSubmittedFileName(); 
+		if (videoPart != null && !videoPart.getSubmittedFileName().isBlank()) {
+			url = "videos/" + videoPart.getSubmittedFileName();
 		}
-		
-		System.out.println("FICHERO VIDEO: " + videoPart.getSubmittedFileName());
-		System.out.println("FICHERO MINIATURA: " + miniaturaPart.getSubmittedFileName());
 
 		Autor usuario = (Autor) request.getSession().getAttribute("usuario");
 
@@ -72,8 +71,10 @@ public class VideoServlet extends HttpServlet {
 			// 5. Preparar información para la siguiente petición
 			request.setAttribute("video", video);
 			request.setAttribute("autores", AutorDao.obtenerTodos());
+
 			// 6. Pasar a la siguiente vista
-			request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
+			request.getRequestDispatcher(request.getHeader("referer").replace(request.getContextPath(), "")
+					.replace(request.getHeader("origin"), "")).forward(request, response);
 			return;
 		}
 
@@ -83,11 +84,11 @@ public class VideoServlet extends HttpServlet {
 			VideoDao.modificar(video, usuario.isAdmin());
 		}
 
-		if(!miniaturaPart.getSubmittedFileName().isBlank()) {
-			miniaturaPart.write(rutaMiniaturas + "/" + video.getId() + ".jpg");				
+		if (miniaturaPart != null && !miniaturaPart.getSubmittedFileName().isBlank()) {
+			miniaturaPart.write(rutaMiniaturas + "/" + video.getId() + ".jpg");
 		}
 
-		if(!videoPart.getSubmittedFileName().isBlank()) {
+		if (videoPart != null && !videoPart.getSubmittedFileName().isBlank()) {
 			videoPart.write(rutaVideos + "/" + videoPart.getSubmittedFileName());
 		}
 

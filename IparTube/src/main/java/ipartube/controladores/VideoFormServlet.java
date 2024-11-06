@@ -28,5 +28,9 @@ public class VideoFormServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
 	}
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
+	}
 }

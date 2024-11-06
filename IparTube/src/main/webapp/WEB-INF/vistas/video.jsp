@@ -15,7 +15,7 @@ Video video = (Video) request.getAttribute("video");
 
 <%-- <p><%=video %></p> --%>
 
-<form action="video" method="post">
+<form action="video" method="post" enctype="multipart/form-data">
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm-10">
