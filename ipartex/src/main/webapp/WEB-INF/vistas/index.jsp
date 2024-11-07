@@ -1,3 +1,4 @@
+<%@page import="ipartex.accesodatos.MensajeDao"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="ipartex.modelos.Mensaje"%>
 <%@page import="java.util.ArrayList"%>
@@ -59,8 +60,14 @@ for (Mensaje m : mensajes) {
 				</h5>
 				<p class="card-text"><%=m.getTexto()%></p>
 				<p class="card-text">
-					<small class="text-body-secondary"> <a href="megusta?id=<%=m.getId()%>"><i
-							class="bi bi-heart"></i></a> <%=m.getNumeroLesGusta()%></small>
+					<small class="text-body-secondary"> <a
+						href="megusta?id=<%=m.getId()%>"><%
+ if (usuario != null && MensajeDao.legusta(usuario.getId(), m.getId())) {
+ %><i class="text-danger bi bi-heart-fill"></i><%
+ } else {
+ %><i class="bi bi-heart"></i><%
+ }
+ %></a> <%=m.getNumeroLesGusta()%></small>
 				</p>
 			</div>
 		</div>
