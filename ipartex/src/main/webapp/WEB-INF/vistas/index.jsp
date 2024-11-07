@@ -59,8 +59,8 @@ for (Mensaje m : mensajes) {
 				</h5>
 				<p class="card-text"><%=m.getTexto()%></p>
 				<p class="card-text">
-					<small class="text-body-secondary"><i class="bi bi-heart"></i>
-						<%=m.getNumeroLesGusta()%></small>
+					<small class="text-body-secondary"> <a href="megusta?id=<%=m.getId()%>"><i
+							class="bi bi-heart"></i></a> <%=m.getNumeroLesGusta()%></small>
 				</p>
 			</div>
 		</div>

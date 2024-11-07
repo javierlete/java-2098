@@ -26,6 +26,16 @@ public class MensajeDao {
 			""";
 	private static final String SQL_INSERT = "INSERT INTO mensajes (usuario_id, fecha, texto) VALUES (?,?,?)";
 
+	private static final String SQL_SELECT_LEGUSTA = """
+			SELECT * 
+			FROM usuarios_lesgusta_mensajes 
+			WHERE usuarios_id=? AND mensajes_id=?
+			""";
+	
+	private static final String SQL_INSERT_LEGUSTA = "INSERT INTO usuarios_lesgusta_mensajes (usuarios_id, mensajes_id) VALUES (?,?)";
+	private static final String SQL_DELETE_LEGUSTA = "DELETE FROM usuarios_lesgusta_mensajes WHERE usuarios_id=? AND mensajes_id=?";
+	
+	
 	public static ArrayList<Mensaje> getMensajes() {
 		try (Connection con = DriverManager.getConnection(URL);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT);
@@ -61,6 +71,47 @@ public class MensajeDao {
 
 			pst.executeUpdate();
 
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static boolean legusta(Long idUsuario, Long idMensaje) {
+		try (Connection con = DriverManager.getConnection(URL);
+				PreparedStatement pst = con.prepareStatement(SQL_SELECT_LEGUSTA);
+				) {
+			pst.setLong(1, idUsuario);
+			pst.setLong(2, idMensaje);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			return rs.next();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static void agregarMegusta(Long idUsuario, Long idMensaje) {
+		try (Connection con = DriverManager.getConnection(URL);
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT_LEGUSTA);
+				) {
+			pst.setLong(1, idUsuario);
+			pst.setLong(2, idMensaje);
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static void quitarMegusta(Long idUsuario, Long idMensaje) {
+		try (Connection con = DriverManager.getConnection(URL);
+				PreparedStatement pst = con.prepareStatement(SQL_DELETE_LEGUSTA);
+				) {
+			pst.setLong(1, idUsuario);
+			pst.setLong(2, idMensaje);
+			
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
