@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static ipartex.controladores.Globales.VISTAS;
+
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,7 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("mensajes", MensajeDao.getMensajes());
 		
-		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+		request.getRequestDispatcher(VISTAS + "index.jsp").forward(request, response);
 	}
 
 }
