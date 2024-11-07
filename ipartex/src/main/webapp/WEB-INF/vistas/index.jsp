@@ -1,8 +1,40 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="ipartex.modelos.Mensaje"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
+
+<%
+if (usuario != null) {
+%>
+
+<div class="card mb-3">
+	<div class="row g-0">
+		<div class="col-auto border-end">
+			<div class="ratio ratio-1x1" style="width: 80px">
+				<img src="imgs/<%=usuario.getId()%>.jpg" width="40"
+					class="rounded-circle p-3" alt="...">
+			</div>
+		</div>
+		<div class="col">
+			<form class="card-body" action="mensaje" method="post">
+				<h5 class="card-title">
+					<%=usuario.getNombre()%>
+					<small class="fs-6 text-body-secondary"><%=LocalDateTime.now().format(Mensaje.FORMATEADOR_FECHA)%></small>
+				</h5>
+				<p class="input-group card-text">
+					<input class="form-control" name="texto">
+					<button class="btn btn-primary">Enviar</button>
+				</p>
+			</form>
+		</div>
+	</div>
+</div>
+
+<%
+}
+%>
 
 <%
 @SuppressWarnings("unchecked")
@@ -15,7 +47,8 @@ for (Mensaje m : mensajes) {
 	<div class="row g-0">
 		<div class="col-auto border-end">
 			<div class="ratio ratio-1x1" style="width: 80px">
-				<img src="imgs/<%=m.getUsuario().getId()%>.jpg" width="40" class="rounded-circle p-3" alt="...">
+				<img src="imgs/<%=m.getUsuario().getId()%>.jpg" width="40"
+					class="rounded-circle p-3" alt="...">
 			</div>
 		</div>
 		<div class="col">
