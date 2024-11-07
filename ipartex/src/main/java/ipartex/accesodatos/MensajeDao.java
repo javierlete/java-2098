@@ -11,16 +11,9 @@ import java.util.ArrayList;
 import ipartex.modelos.Mensaje;
 import ipartex.modelos.Usuario;
 
+import static ipartex.accesodatos.Globales.URL;
+
 public class MensajeDao {
-	static {
-		try {
-			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("No se ha encontrado el driver");
-		}
-	}
-	
-	private static final String URL = "jdbc:sqlite:C:\\Users\\html.IPARTEKAULA\\git\\java-2098\\ipartex\\bdd\\ipartex.db";
 	private static final String SQL_SELECT = """
 			SELECT m.id AS m_id, m.fecha AS m_fecha, m.texto AS m_texto,
 			        u.id AS u_id, u.nombre AS u_nombre, u.email AS u_email, u.password AS u_password,
