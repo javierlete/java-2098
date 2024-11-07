@@ -31,7 +31,7 @@ public class MegustaServlet extends HttpServlet {
 			MensajeDao.agregarMegusta(usuario.getId(), id);
 		}
 		
-		response.sendRedirect("index");
+		response.sendRedirect("index#m" + id);
 	}
 
 }

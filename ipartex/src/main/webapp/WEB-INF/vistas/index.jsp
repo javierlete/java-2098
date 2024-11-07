@@ -44,7 +44,7 @@ ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) request.getAttribute("mensaje
 for (Mensaje m : mensajes) {
 %>
 
-<div class="card mb-3">
+<div id="m<%=m.getId() %>" class="card mb-3" style="scroll-margin-top: 60px">
 	<div class="row g-0">
 		<div class="col-auto border-end">
 			<div class="ratio ratio-1x1" style="width: 80px">
