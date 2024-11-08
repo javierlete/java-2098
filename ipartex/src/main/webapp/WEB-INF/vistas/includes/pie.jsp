@@ -29,5 +29,6 @@
 		},
 	});
 </script>
+<script src="js/ipartex.js"></script>
 </body>
 </html>
