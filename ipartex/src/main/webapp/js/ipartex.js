@@ -3,8 +3,8 @@ async function megusta(id) {
 
 	const mensaje = document.querySelector('#m' + id);
 
-	const a = mensaje.querySelector('a');
-	const span = mensaje.querySelector('.numero-megusta');
+	const a = mensaje.querySelector('a.megusta');
+	const span = mensaje.querySelector('span.numero-megusta');
 	
 	const numeroMegusta = +span.innerText;
 	

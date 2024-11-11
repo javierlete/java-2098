@@ -84,6 +84,7 @@ for (Mensaje m : mensajes) {
 				<p class="card-text text-truncate"><%=m.getTexto()%></p>
 				<p class="card-text">
 					<small class="text-body-secondary"> <a
+						class="megusta"
 						onclick="return megusta(<%=m.getId()%>)"
 						href="megusta?id=<%=m.getId()%>"><%
  if (usuario != null && MensajeDao.legusta(usuario.getId(), m.getId())) {
