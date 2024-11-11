@@ -15,7 +15,7 @@ public class UsuarioDao {
 	private static final String SQL_SELECT_EMAIL = "SELECT * FROM usuarios WHERE email=?";
 
 	public static void insertar(Usuario usuario) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT)) {
 			pst.setString(1, usuario.getNombre());
 			pst.setString(2, usuario.getEmail());
@@ -28,7 +28,7 @@ public class UsuarioDao {
 	}
 
 	public static Usuario buscarPorEmail(String email) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT_EMAIL)) {
 			pst.setString(1, email);
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import ipartex.modelos.Mensaje;
 import ipartex.modelos.Usuario;
 
-import static ipartex.accesodatos.Globales.URL;
+import static ipartex.accesodatos.Globales.*;
 
 public class MensajeDao {
 	private static final String SQL_SELECT = """
@@ -37,7 +37,7 @@ public class MensajeDao {
 	
 	
 	public static ArrayList<Mensaje> getMensajes() {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT);
 				ResultSet rs = pst.executeQuery()) {
 			var mensajes = new ArrayList<Mensaje>();
@@ -62,7 +62,7 @@ public class MensajeDao {
 	}
 
 	public static void insertar(Mensaje mensaje) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
 
 			pst.setLong(1, mensaje.getUsuario().getId());
@@ -77,7 +77,7 @@ public class MensajeDao {
 	}
 
 	public static boolean legusta(Long idUsuario, Long idMensaje) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT_LEGUSTA);
 				) {
 			pst.setLong(1, idUsuario);
@@ -92,7 +92,7 @@ public class MensajeDao {
 	}
 
 	public static void agregarMegusta(Long idUsuario, Long idMensaje) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT_LEGUSTA);
 				) {
 			pst.setLong(1, idUsuario);
@@ -105,7 +105,7 @@ public class MensajeDao {
 	}
 
 	public static void quitarMegusta(Long idUsuario, Long idMensaje) {
-		try (Connection con = DriverManager.getConnection(URL);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_DELETE_LEGUSTA);
 				) {
 			pst.setLong(1, idUsuario);

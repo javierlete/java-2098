@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Mensaje {
-	private static final String FORMATO_FECHA = "yyyy-MM-dd HH:mm";
+	private static final String FORMATO_FECHA = "yyyy-MM-dd HH:mm:ss";
 	public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(FORMATO_FECHA);
 	
 	private Long id;
