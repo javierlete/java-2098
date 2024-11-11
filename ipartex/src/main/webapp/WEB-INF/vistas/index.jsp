@@ -44,7 +44,8 @@ ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) request.getAttribute("mensaje
 for (Mensaje m : mensajes) {
 %>
 
-<div id="m<%=m.getId()%>" class="card mb-3"
+<div id="m<%=m.getId()%>"
+	class="card mb-3 <%=m.getBorrado() ? "text-bg-secondary" : ""%>"
 	style="scroll-margin-top: 60px">
 	<div class="row g-0 flex-nowrap">
 		<div class="col-auto border-end">
@@ -61,12 +62,21 @@ for (Mensaje m : mensajes) {
 						<small class="fs-6 text-body-secondary"><%=m.getFechaFormateada()%></small>
 					</h5>
 					<%
-					if (usuario != null && usuario.getId() == m.getUsuario().getId()) {
+					if (usuario != null && !m.getBorrado() && (usuario.getId() == m.getUsuario().getId() || (usuario.isAdmin()))) {
 					%>
 					<a
 						onclick="return confirm('¿Estás seguro de eliminar este mensaje?')"
 						href="borrar?id=<%=m.getId()%>" class="btn-close"
-						aria-label="Close"></a>
+						aria-label="Borrar"></a>
+					<%
+					}
+
+					if (usuario != null && usuario.isAdmin() && m.getBorrado()) {
+					%>
+					<a
+						onclick="return confirm('¿Estás seguro de recuperar este mensaje?')"
+						href="recuperar?id=<%=m.getId()%>"
+						class="bi bi-arrow-counterclockwise text-light fs-4" aria-label="Recuperar"></a>
 					<%
 					}
 					%>

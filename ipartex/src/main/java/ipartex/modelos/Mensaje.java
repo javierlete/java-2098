@@ -13,6 +13,7 @@ public class Mensaje {
 	private LocalDateTime fecha;
 	private String texto;
 	private Long numeroLesGusta;
+	private Boolean borrado = false;
 	
 	private ArrayList<Usuario> usuariosLesGusta = new ArrayList<Usuario>();
 
@@ -65,6 +66,14 @@ public class Mensaje {
 		return numeroLesGusta;
 	}
 	
+	public Boolean getBorrado() {
+		return borrado;
+	}
+
+	public void setBorrado(Boolean borrado) {
+		this.borrado = borrado;
+	}
+
 	public String getFechaFormateada() {
 		return fecha.format(FORMATEADOR_FECHA);
 	}
