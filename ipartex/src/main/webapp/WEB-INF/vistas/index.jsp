@@ -44,7 +44,8 @@ ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) request.getAttribute("mensaje
 for (Mensaje m : mensajes) {
 %>
 
-<div id="m<%=m.getId() %>" class="card mb-3" style="scroll-margin-top: 60px">
+<div id="m<%=m.getId()%>" class="card mb-3"
+	style="scroll-margin-top: 60px">
 	<div class="row g-0 flex-nowrap">
 		<div class="col-auto border-end">
 			<div class="ratio ratio-1x1" style="width: 80px">
@@ -54,14 +55,26 @@ for (Mensaje m : mensajes) {
 		</div>
 		<div class="col overflow-hidden">
 			<div class="card-body">
-				<h5 class="card-title">
-					<%=m.getUsuario().getNombre()%>
-					<small class="fs-6 text-body-secondary"><%=m.getFechaFormateada()%></small>
-				</h5>
+				<div class="card-title d-flex justify-content-between">
+					<h5>
+						<%=m.getUsuario().getNombre()%>
+						<small class="fs-6 text-body-secondary"><%=m.getFechaFormateada()%></small>
+					</h5>
+					<%
+					if (usuario != null && usuario.getId() == m.getUsuario().getId()) {
+					%>
+					<a
+						onclick="return confirm('¿Estás seguro de eliminar este mensaje?')"
+						href="borrar?id=<%=m.getId()%>" class="btn-close"
+						aria-label="Close"></a>
+					<%
+					}
+					%>
+				</div>
 				<p class="card-text text-truncate"><%=m.getTexto()%></p>
 				<p class="card-text">
 					<small class="text-body-secondary"> <a
-						onclick="return megusta(<%=m.getId() %>)"
+						onclick="return megusta(<%=m.getId()%>)"
 						href="megusta?id=<%=m.getId()%>"><%
  if (usuario != null && MensajeDao.legusta(usuario.getId(), m.getId())) {
  %><i class="text-danger bi bi-heart-fill"></i><%

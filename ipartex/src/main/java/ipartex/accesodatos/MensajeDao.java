@@ -21,6 +21,7 @@ public class MensajeDao {
 			FROM mensajes m
 			LEFT JOIN usuarios u ON u.id = m.usuario_id
 			LEFT JOIN usuarios_lesgusta_mensajes um ON m.id = um.mensajes_id
+			WHERE m.borrado = FALSE
 			GROUP BY m.id
 			ORDER BY m.fecha DESC, m.id DESC
 			""";
@@ -34,6 +35,7 @@ public class MensajeDao {
 	
 	private static final String SQL_INSERT_LEGUSTA = "INSERT INTO usuarios_lesgusta_mensajes (usuarios_id, mensajes_id) VALUES (?,?)";
 	private static final String SQL_DELETE_LEGUSTA = "DELETE FROM usuarios_lesgusta_mensajes WHERE usuarios_id=? AND mensajes_id=?";
+	private static final String SQL_DELETE = "UPDATE mensajes SET borrado=TRUE WHERE usuario_id=? AND id=? AND borrado=FALSE";
 	
 	
 	public static ArrayList<Mensaje> getMensajes() {
@@ -112,6 +114,23 @@ public class MensajeDao {
 			pst.setLong(2, idMensaje);
 			
 			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+
+	public static void borrar(Long idUsuario, Long idMensaje) {
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+				PreparedStatement pst = con.prepareStatement(SQL_DELETE);
+				) {
+			pst.setLong(1, idUsuario);
+			pst.setLong(2, idMensaje);
+			
+			int numeroRegistrosModificados = pst.executeUpdate();
+			
+			if(numeroRegistrosModificados == 0) {
+				throw new RuntimeException("No se ha borrado ningún registro");
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
