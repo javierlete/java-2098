@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import ipargram.modelos.Entrada;
@@ -17,6 +18,7 @@ public class EntradaAccesoDatos {
 
 	private static final String SQL_SELECT = "SELECT * FROM entradas";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE id=?";
+	private static final String SQL_INSERT = "INSERT INTO entradas (titulo, fecha_hora) VALUES (?,?)";
 
 	static {
 		try {
@@ -63,6 +65,19 @@ public class EntradaAccesoDatos {
 			}
 
 			return entrada;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error en la consulta", e);
+		}
+	}
+	
+	public static void insertar(Entrada entrada) {
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
+
+			pst.setString(1, entrada.getTitulo());
+			pst.setString(2, entrada.getFechaHora().format(DateTimeFormatter.ISO_DATE_TIME));
+
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}
