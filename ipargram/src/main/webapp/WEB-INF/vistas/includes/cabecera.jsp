@@ -8,6 +8,7 @@
 <title>Ipargram</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+<link href="imgs/camera2.svg" rel="icon">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
