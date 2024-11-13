@@ -13,7 +13,7 @@ var entradas = (ArrayList<Entrada>)request.getAttribute("entradas");
 	<% for(Entrada entrada: entradas) { %>
 	<div class="col">
 		<div class="card h-100">
-			<img src="imgs/<%=entrada.getId() %>.jpg" class="card-img-top" alt="...">
+			<a class="stretched-link" href="entrada?id=<%=entrada.getId()%>"><img src="imgs/<%=entrada.getId() %>.jpg" class="card-img-top" alt="..."></a>
 			<div class="card-body d-flex">
 				<h5 class="card-title align-self-end"><%=entrada.getTitulo() %></h5>
 			</div>
