@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -70,14 +71,22 @@ public class EntradaAccesoDatos {
 		}
 	}
 	
-	public static void insertar(Entrada entrada) {
+	public static Entrada insertar(Entrada entrada) {
 		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
 			pst.setString(1, entrada.getTitulo());
 			pst.setString(2, entrada.getFechaHora().format(DateTimeFormatter.ISO_DATE_TIME));
 
 			pst.executeUpdate();
+			
+			ResultSet rs = pst.getGeneratedKeys();
+			
+			rs.next();
+			
+			entrada.setId(rs.getLong(1));
+			
+			return entrada;
 		} catch (SQLException e) {
 			throw new RuntimeException("Error en la consulta", e);
 		}

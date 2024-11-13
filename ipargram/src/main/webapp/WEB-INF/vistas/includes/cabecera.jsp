@@ -24,6 +24,9 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="formulario">Formulario</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
